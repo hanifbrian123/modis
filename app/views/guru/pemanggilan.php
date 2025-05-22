@@ -1,3 +1,3 @@
   <div>
-    <h1 class="text-2xl font-bold ms-5 mt-5">Daftar Pemanggilan</h1>
+    <h1 class="text-2xl font-bold">Daftar Pemanggilan</h1>
   </div>

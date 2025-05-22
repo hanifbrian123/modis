@@ -17,7 +17,7 @@ $current_page = $data['title'];
 <body class="bg-[url('<?= BASEURL; ?>/img/bg-all.png')] bg-cover bg-center min-h-screen flex flex-col">
 
   <nav class="bg-[#294A70]">
-    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-20 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex h-full items-center sm:hidden">
           <!-- Mobile menu button-->
@@ -48,7 +48,7 @@ $current_page = $data['title'];
           </div>
           <div class="hidden h-full sm:ml-6 sm:block">
             <div class="flex items-center h-full space-x-4">
-              <a href="<?= BASEURL; ?>/guru/laporan" class="px-3 py-2 text-base font-bold text-white hover:underline hover:underline-offset-8 hover:decoration-2 <?= ($current_page == 'Laporan') ? 'underline decoration-2 underline-offset-8' : '' ?>" aria-current="page">Laporan</a>
+              <a href="<?= BASEURL; ?>/guru" class="px-3 py-2 text-base font-bold text-white hover:underline hover:underline-offset-8 hover:decoration-2 <?= ($current_page == 'Laporan') ? 'underline decoration-2 underline-offset-8' : '' ?>">Laporan</a>
               <a href="<?= BASEURL; ?>/guru/pelanggaran" class="px-3 py-2 text-base font-bold text-white hover:underline hover:underline-offset-8 hover:decoration-2 <?= ($current_page == 'Pelanggaran') ? 'underline decoration-2 underline-offset-8' : '' ?>">Pelanggaran</a>
               <a href="<?= BASEURL; ?>/guru/pemanggilan" class="px-3 py-2 text-base font-bold text-white hover:underline hover:underline-offset-8 hover:decoration-2 <?= ($current_page == 'Pemanggilan') ? 'underline decoration-2 underline-offset-8' : '' ?>">Pemanggilan</a>
               <a href="<?= BASEURL; ?>/guru/konseling" class="px-3 py-2 text-base font-bold text-white hover:underline hover:underline-offset-8 hover:decoration-2 <?= ($current_page == 'Konseling') ? 'underline decoration-2 underline-offset-8' : '' ?>">Konseling</a>
@@ -86,13 +86,12 @@ $current_page = $data['title'];
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pt-2 pb-3">
-        <a href="#" class="block rounded-md bg-[#1A2F47] px-3 py-2 text-base font-medium text-white" aria-current="page">Home</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-[#345E8E] hover:text-white">Pelanggaran</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-[#345E8E] hover:text-white">Laporan</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-[#345E8E] hover:text-white">Daftar Ortu</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-[#345E8E] hover:text-white">Konseling</a>
+        <a href="<?= BASEURL; ?>/guru/laporan" class="block px-3 py-2 text-base font-medium text-white <?= ($current_page == 'Laporan') ? 'underline decoration-2 underline-offset-8' : '' ?>">Laporan</a>
+        <a href="<?= BASEURL; ?>/guru/pelanggaran" class="block px-3 py-2 text-base font-medium text-white <?= ($current_page == 'Pelanggaran') ? 'underline decoration-2 underline-offset-8' : '' ?>">Pelanggaran</a>
+        <a href="<?= BASEURL; ?>/guru/pemanggilan" class="block px-3 py-2 text-base font-medium text-white <?= ($current_page == 'Pemanggilan') ? 'underline decoration-2 underline-offset-8' : '' ?>">Pemanggilan</a>
+        <a href="<?= BASEURL; ?>/guru/konseling" class="block px-3 py-2 text-base font-medium text-white <?= ($current_page == 'Konseling') ? 'underline decoration-2 underline-offset-8' : '' ?>">Konseling</a>
       </div>
     </div>
   </nav>
 
-<main class="m-6 p-8 flex-1 bg-[#ffffff] rounded-3xl shadow-lg/25">
+  <main class="m-6 p-8 flex-1 bg-[#ffffff] rounded-3xl shadow-lg/25">
