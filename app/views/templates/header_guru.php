@@ -93,5 +93,3 @@ $current_page = $data['title'];
       </div>
     </div>
   </nav>
-
-  <main class="m-6 p-8 flex-1 bg-[#ffffff] rounded-3xl shadow-lg/25">
