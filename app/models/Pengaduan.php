@@ -1,0 +1,26 @@
+<?php
+class Pengaduan
+{
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new Database;
+    }
+
+    public function getDaftarLaporan()
+    {
+        $this->db->query(
+            "SELECT 
+                s.nama AS nama,
+                p.jenis_pelanggaran,
+                p.deskripsi,
+                p.status
+            FROM 
+                pengaduan p
+            JOIN 
+                siswa s ON p.nis_terlapor = s.nis"
+        );
+        return $this->db->resultSet();
+    }
+}
