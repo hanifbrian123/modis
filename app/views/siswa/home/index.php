@@ -19,41 +19,30 @@
       </thead>
       <!-- Table Body -->
       <tbody>
-        <?php for ($i = 1; $i <= 5; $i++): ?>
+        <?php foreach ($data['daftar_pengaduan'] as $pengaduan): ?>
           <!-- Row -->
           <tr class="border-b border-gray-200 hover:bg-gray-50">
-            <td class="py-4 px-2 text-center"><?= $i ?></td>
-            <td class="py-4 px-2">Lorem, ipsum dolor.</td>
-            <td class="py-4 px-2">Telat</td>
+            <td class="py-4 px-2 text-center"></td>
+            <td class="py-4 px-2"><?= $pengaduan['nama'] ?></td>
+            <td class="py-4 px-2"><?= $pengaduan['jenis_pelanggaran'] ?></td>
             <td class="py-4 px-2">
               <img src="<?= BASEURL ?>/img/pelanggaran.png"
                 alt="Gambar pelanggaran"
                 class="w-24 h-16 object-cover rounded-xl">
             </td>
-            <td class="py-4 px-2">Deskripsi singkat tentang pelanggaran</td>
+            <td class="py-4 px-2"><?= $pengaduan['deskripsi'] ?></td>
             <td class="py-4 px-2">
-              <div class="flex flex-col sm:flex-row gap-2">
+              <div class="flex flex-col sm:flex-row gap-2 justify-center">
+
                 <button
-                  class="bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-600 transition">
-                  Diterima
+                  class="<?= classStatusPengaduan($pengaduan['status']) ?> px-4 py-1 rounded-md transition">
+                  <?= $pengaduan['status'] ?>
                 </button>
-
-                <!-- Tombol Pending -->
-                <!-- <button
-                  class="bg-[#F4A024] text-white px-4 py-1 rounded-md hover:bg-[#D5830B] transition">
-                  Pending
-                </button> -->
-
-                <!-- Tombol Ditolak -->
-                <!-- <button
-                  class="bg-[#FF0000] text-white px-4 py-1 rounded-md hover:bg-[#C70000] transition">
-                  Ditolak
-                </button> -->
               </div>
             </td>
           </tr>
 
-        <?php endfor; ?>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </div>
@@ -67,30 +56,17 @@
   <!-- Mobile Cards -->
   <div class="space-y-4">
     <!-- Card -->
-    <?php for ($i = 1; $i <= 5; $i++): ?>
+    <?php foreach ($data['daftar_pengaduan'] as $pengaduan): ?>
 
       <div class="border border-gray-200 bg-white shadow-md rounded-lg p-4">
 
         <div class="flex justify-between items-start mb-3">
-          <span class="text-md font-semibold text-gray-800"><?= $i . "." ?> Gibran Gaming</span>
+          <span class="text-md font-semibold text-gray-800"><?= $pengaduan['nama'] ?></span>
           <div class="flex">
             <button
-              class="bg-green-500 text-white text-sm font-medium py-[2px] px-2 rounded-md hover:bg-green-600 transition">
-              Diterima
+              class="<?= classStatusPengaduan($pengaduan['status']) ?> text-sm font-medium py-[2px] px-2 rounded-md transition">
+              <?= $pengaduan['status'] ?>
             </button>
-
-            <!-- Tombol Pending -->
-            <!-- <button
-              class="bg-[#F4A024] text-white text-sm font-medium py-[2px] px-2 rounded-md hover:bg-[#D5830B] transition">
-              Pending
-            </button> -->
-
-            <!-- Tombol Ditolak -->
-            <!-- <button
-              class="bg-[#FF0000] text-white text-sm font-medium py-[2px] px-2 rounded-md hover:bg-[#C70000] transition">
-              Ditolak
-            </button> -->
-
           </div>
         </div>
         <div class="grid grid-cols-3 gap-3">
@@ -111,6 +87,6 @@
         </div>
       </div>
 
-    <?php endfor; ?>
+    <?php endforeach; ?>
   </div>
 </div>

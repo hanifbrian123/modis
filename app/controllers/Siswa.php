@@ -5,6 +5,7 @@ class Siswa extends Controller
   public function index()
   {
     $data['title'] = 'Home';
+    $data['daftar_pengaduan'] = $this->model('Pengaduan')->getDaftarLaporan();
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/home/index', $data);
     $this->view('templates/footer');
