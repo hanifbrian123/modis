@@ -1,6 +1,9 @@
 <main class="m-6 p-8 flex-1 bg-[#ffffff] rounded-3xl shadow-lg/25 max-sm:hidden">
-  <div>
+  <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold">Daftar Pelanggaran</h2>
+    <h2 class="bg-[#FF0000] text-white hover:bg-[#C70000] px-4 py-2 rounded-md transition">
+      Total Poin : 12
+    </h2>
   </div>
 
   <!-- Table -->
@@ -24,17 +27,15 @@
             <td class="py-4 px-2 text-center">1</td>
             <td class="py-4 px-2">Telat</td>
             <td class="py-4 px-2">
-              <img src="<?= BASEURL ?>/img/pelanggaran.png"
-                alt="Gambar pelanggaran"
+              <img src="<?= BASEURL ?>/img/pelanggaran.png" alt="Gambar pelanggaran"
                 class="w-24 h-16 object-cover rounded-xl">
             </td>
             <td class="py-4 px-2">Deskripsi Singkat Pelanggaran</td>
             <td class="py-4 px-2 text-left">
 
-                <button
-                  class="bg-[#FF0000] text-white hover:bg-[#C70000] px-4 py-1 rounded-md transition">
-                  +3
-                </button>
+              <button class="bg-[#FF0000] text-white hover:bg-[#C70000] px-4 py-1 rounded-md transition">
+                +3
+              </button>
             </td>
           </tr>
 
@@ -71,8 +72,7 @@
           </div>
           <div>
             <p class="text-xs text-gray-500 mb-1">Gambar</p>
-            <img src="<?= BASEURL ?>/img/pelanggaran.png"
-              alt="Gambar Pelanggaran"
+            <img src="<?= BASEURL ?>/img/pelanggaran.png" alt="Gambar Pelanggaran"
               class="w-20 h-16 object-cover rounded-xl">
           </div>
           <div>
