@@ -5,11 +5,11 @@
     <h1 class="text-2xl font-bold place-self-center">Konsultasi</h1>
     <div class="container flex flex-col items-center justify-center mt-6">
 
-      <div class="hover:bg-[#d1dfff] kirim-pesan p-15 bg-[#bbcde4] m-10 rounded-3xl shadow-lg/25 w-2xs text-center text-xl">
+      <div onclick="window.location.href='<?= BASEURL ?>/siswa/kirim_pesan'" class="hover:bg-[#d1dfff] kirim-pesan p-15 bg-[#bbcde4] m-10 rounded-3xl shadow-lg/25 w-2xs text-center text-xl">
         <button class="font-bold">Kirim Pesan</button>
       </div>
       
-      <div class="hover:bg-[#d1dfff] lihat-pesan p-15 bg-[#bbcde4] m-10 rounded-3xl shadow-lg/25 w-2xs text-center text-xl">
+      <div onclick="window.location.href='<?= BASEURL ?>/siswa/lihat_pesan'" class="hover:bg-[#d1dfff] lihat-pesan p-15 bg-[#bbcde4] m-10 rounded-3xl shadow-lg/25 w-2xs text-center text-xl">
         <button class="font-bold">Lihat Pesan</button>
       </div>
     
