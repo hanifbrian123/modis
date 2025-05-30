@@ -10,7 +10,7 @@ class Siswa extends Controller
     $this->view('siswa/home/index', $data);
     $this->view('templates/footer');
   }
-
+  
   // KONTROLER UNTUK MENU LAPOR BK
   public function lapor_bk()
   {
@@ -19,7 +19,7 @@ class Siswa extends Controller
     $this->view('siswa/lapor_bk/index', $data);
     $this->view('templates/footer');
   }
-
+  
   // KONTROLER UNTUK MENU KONSULTASI
   public function konsultasi()
   {
@@ -28,7 +28,7 @@ class Siswa extends Controller
     $this->view('siswa/konsultasi/index', $data);
     $this->view('templates/footer');
   }
-
+  
   public function kirim_pesan()
   {
     $data['title'] = 'Konsultasi';
@@ -37,9 +37,19 @@ class Siswa extends Controller
     $this->view('templates/footer');
   }
 
-  public function lihat_pesan()
+  public function kirimPesan()
   {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $this->model('Pesan_konsultasi')->kirimPesan($_POST);
+      header('Location: ' . BASEURL . '/siswa/konsultasi');
+      exit;
+    }
+  }
+  
+  public function lihat_pesan()
+  { 
     $data['title'] = 'Konsultasi';
+    $data['pesan_pribadi'] = $this->model('Pesan_konsultasi')->getPesanById(3333);
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/konsultasi/lihat_pesan', $data);
     $this->view('templates/footer');
