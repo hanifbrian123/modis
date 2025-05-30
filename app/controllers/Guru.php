@@ -53,6 +53,15 @@ class Guru extends Controller
     $this->view('templates/footer');
   }
 
+
+  public function detail_pemanggilan()
+  {
+      $data['title'] = 'Pemanggilan';
+      $this->view('templates/header_guru', $data);
+      $this->view('guru/pemanggilan/detail_pemanggilan', $data);
+      $this->view('templates/footer');
+  }
+
   // KONTROLER UNTUK MENU KONSELING
   public function konseling()
   {
