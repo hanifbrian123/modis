@@ -35,17 +35,17 @@
       <div class="flex">
         <span class="font-medium w-16">Nama</span>
         <span class="mx-2">:</span>
-        <span>Lorem ipsum sit dolor</span>
+        <span><?= $data['siswa']['Nama'] ?></span>
       </div>
       <div class="flex">
         <span class="font-medium w-16">Kelas</span>
         <span class="mx-2">:</span>
-        <span>12 - 4</span>
+        <span><?= $data['siswa']['Kelas'] ?></span>
       </div>
       <div class="flex">
         <span class="font-medium w-16">NIS</span>
         <span class="mx-2">:</span>
-        <span>231338136123</span>
+        <span><?= $data['siswa']['NIS'] ?></span>
       </div>
     </div>
   </div>
@@ -65,26 +65,26 @@
       </thead>
       <!-- Table Body -->
       <tbody>
-        <?php for ($i = 1; $i <= 5; $i++): ?>
+        <?php foreach ($data['daftar_pelanggaran'] as $no => $pelanggaran): ?>
           <!-- Row -->
           <tr class="border-b border-gray-200 hover:bg-gray-50">
-            <td class="py-4 px-2 text-center"><?= $i ?></td>
-            <td class="py-4 px-2">Telat</td>
+            <td class="py-4 px-2 text-center"><?= $no + 1 ?></td>
+            <td class="py-4 px-2"><?= $pelanggaran['jenis_pelanggaran'] ?></td>
             <td class="py-4 px-2">
               <img src="<?= BASEURL ?>/img/pelanggaran.png"
                 alt="Gambar pelanggaran"
                 class="w-24 h-16 object-cover rounded-xl">
             </td>
-            <td class="py-4 px-2">Deskripsi singkat tentang pelanggaran</td>
+            <td class="py-4 px-2"><?= $pelanggaran['deskripsi'] ?></td>
             <td class="py-4 px-2">
               <div class="flex flex-col sm:flex-row gap-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1">
+                <a href="<?= BASEURL; ?>/guru/edit_pelanggaran/<?= $pelanggaran['id'] ?>" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1 font-semibold">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                   </svg>
                   Ubah
-                </button>
-                <button onclick="showDeleteModal(1)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
+                </a>
+                <button onclick="showDeleteModal(1)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1 font-semibold">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                   </svg>
@@ -94,7 +94,7 @@
             </td>
           </tr>
 
-        <?php endfor; ?>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </div>

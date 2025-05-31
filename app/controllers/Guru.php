@@ -27,9 +27,12 @@ class Guru extends Controller
     $this->view('templates/footer');
   }
 
-  public function daftar_pelanggaran()
+  // MASIH MENGGUNAKAN STATIC NIS (siswa001)
+  public function daftar_pelanggaran($nis = "siswa001")
   {
     $data['title'] = 'Pelanggaran';
+    $data['siswa'] = $this->model('Siswa')->getSiswaByNIS($nis);
+    $data['daftar_pelanggaran'] = $this->model('Detail_pelanggaran')->getAllPelanggaranByNIS($nis);
     $this->view('templates/header_guru', $data);
     $this->view('guru/pelanggaran/daftar_pelanggaran', $data);
     $this->view('templates/footer');
@@ -56,10 +59,10 @@ class Guru extends Controller
 
   public function detail_pemanggilan()
   {
-      $data['title'] = 'Pemanggilan';
-      $this->view('templates/header_guru', $data);
-      $this->view('guru/pemanggilan/detail_pemanggilan', $data);
-      $this->view('templates/footer');
+    $data['title'] = 'Pemanggilan';
+    $this->view('templates/header_guru', $data);
+    $this->view('guru/pemanggilan/detail_pemanggilan', $data);
+    $this->view('templates/footer');
   }
 
   // KONTROLER UNTUK MENU KONSELING
@@ -80,7 +83,7 @@ class Guru extends Controller
     $this->view('guru/konseling/detail_pesan', $data);
     $this->view('templates/footer');
   }
-  
+
   public function balas_pesan()
   {
     $data['title'] = 'Konseling';
@@ -88,7 +91,7 @@ class Guru extends Controller
     $this->view('guru/konseling/balas_pesan', $data);
     $this->view('templates/footer');
   }
-  
+
   public function kirimBalasan()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -101,5 +104,4 @@ class Guru extends Controller
       exit;
     }
   }
-
 }
