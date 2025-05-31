@@ -66,6 +66,7 @@ class Guru extends Controller
   public function konseling()
   {
     $data['title'] = 'Konseling';
+    $data['pesan_konsultasi'] = $this->model('Pesan_konsultasi')->getAllPesan();
     $this->view('templates/header_guru', $data);
     $this->view('guru/konseling/index', $data);
     $this->view('templates/footer');
@@ -74,8 +75,31 @@ class Guru extends Controller
   public function detail_pesan()
   {
     $data['title'] = 'Konseling';
+    $data['satu_pesan'] = $this->model('Pesan_konsultasi')->getPesanByIdPesan($_POST['id_pesan']);
     $this->view('templates/header_guru', $data);
     $this->view('guru/konseling/detail_pesan', $data);
     $this->view('templates/footer');
   }
+  
+  public function balas_pesan()
+  {
+    $data['title'] = 'Konseling';
+    $this->view('templates/header_guru', $data);
+    $this->view('guru/konseling/balas_pesan', $data);
+    $this->view('templates/footer');
+  }
+  
+  public function kirimBalasan()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      // Validasi input
+      if (!empty($_POST['balasan'])) {
+        $this->model('Pesan_konsultasi')->kirimBalasan($_POST);
+        // Redirect or show an error message
+      }
+      header('Location: ' . BASEURL . '/guru/konseling');
+      exit;
+    }
+  }
+
 }

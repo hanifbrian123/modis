@@ -49,7 +49,7 @@ class Siswa extends Controller
   public function lihat_pesan()
   { 
     $data['title'] = 'Konsultasi';
-    $data['pesan_pribadi'] = $this->model('Pesan_konsultasi')->getPesanById(3333);
+    $data['pesan_pribadi'] = $this->model('Pesan_konsultasi')->getPesanByNIS(3333);
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/konsultasi/lihat_pesan', $data);
     $this->view('templates/footer');
