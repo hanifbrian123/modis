@@ -17,8 +17,8 @@
         <?php if (!empty($detail_pesan['balasan'])): ?>
           <!-- Ini Div untuk Balasan -->
           <div class="col-span-2 p-4">
-            <div class="bg-[#ffffff] col-span-2 rounded-lg p-4 ">
-              <?php echo $detail_pesan['balasan']; ?> asdasdsa
+            <div class="bg-[#d9d9d9] col-span-2 rounded-lg p-4 ">
+              <?php echo $detail_pesan['balasan']; ?>
             </div>
           </div>
         <?php else: ?>

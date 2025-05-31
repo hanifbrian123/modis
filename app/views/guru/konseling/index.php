@@ -12,7 +12,7 @@
         <span class="text-right text-white font-semibold p-4"><?php echo $pesan['nama'] ?></span>
 
         <div class="col-span-2 p-4">
-          <div class="bg-[#ffffff] rounded-lg p-4">
+          <div class="bg-[#d9d9d9] rounded-lg p-4">
             <?php echo $pesan['Isi_Pesan'] ?>
           </div>
         </div>
@@ -20,7 +20,7 @@
         <?php if (!empty($pesan['Balasan'])): ?>
           <!-- Ini Div untuk Balasan -->
           <div class="col-span-2 p-4">
-            <div class="bg-[#ffffff] col-span-2 rounded-lg p-4 ">
+            <div class="bg-[#ffffff] rounded-lg p-4">
               <?php echo $pesan['Balasan'] ?>
             </div>
           </div>

@@ -20,7 +20,10 @@ class Pesan_konsultasi
       FROM 
         pesan_konsultasi p
       WHERE 
-        p.nis = :nis"
+        p.nis = :nis
+      ORDER BY
+        p.balasan IS NULL,
+        p.waktu_kirim DESC"
     );
     $this->db->bind(':nis', $nis);
     return $this->db->resultSet();
@@ -53,8 +56,7 @@ class Pesan_konsultasi
         JOIN siswa s ON s.nis = pk.nis
       ORDER BY 
         pk.Balasan IS NULL DESC,
-        pk.waktu_kirim DESC
-      "
+        pk.waktu_kirim"
     );
     return $this->db->resultSet();
   }

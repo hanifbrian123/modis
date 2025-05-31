@@ -32,6 +32,7 @@ class Siswa extends Controller
   public function kirim_pesan()
   {
     $data['title'] = 'Konsultasi';
+    $_SESSION['nis'] = 3333; // Simulasi NIS siswa yang login
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/konsultasi/kirim_pesan', $data);
     $this->view('templates/footer');
