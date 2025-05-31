@@ -45,78 +45,25 @@
             </tr>
           </thead>
           <tbody>
-              <tr class="hover:bg-gray-50 border-y">
-                <td class="p-2">1</td>
-                <td class="p-2">2020</td>
-                <td class="p-2">
-                    <button onclick="showDeleteModal(1)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
-                        Hapus
-                    </button>
-                </td>
-              </tr>
-              <tr class="hover:bg-gray-50 border-y">
-                <td class="p-2">2</td>
-                <td class="p-2">2021</td>
-                <td class="p-2">
-                    <button onclick="showDeleteModal(2)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                  Hapus
-                </button>
-                </td>
-              </tr>
-              <tr class="hover:bg-gray-50 border-y">
-                <td class="p-2">3</td>
-                <td class="p-2">2022</td>
-                <td class="p-2">
-                    <button onclick="showDeleteModal(3)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
-                        Hapus
-                    </button>
-                </td>
-              </tr>
-              <tr class="hover:bg-gray-50 border-y">
-                <td class="p-2">4</td>
-                <td class="p-2">2023</td>
-                <td class="p-2">
-                    <button onclick="showDeleteModal(4)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                  Hapus
-                </button>
-                </td>
-              </tr>
-              <tr class="hover:bg-gray-50 border-y">
-                <td class="p-2">5</td>
-                <td class="p-2">2024</td>
-                <td class="p-2">
-                    <button onclick="showDeleteModal(5)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                  Hapus
-                </button>
-                </td>
-              </tr>
-              <tr class="hover:bg-gray-50 border-y">
-                <td class="p-2">6</td>
-                <td class="p-2">2025</td>
-                <td class="p-2">
-                    <button onclick="showDeleteModal(6)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                  Hapus
-                </button>
-                </td>
-              </tr>
+          <?php $no = 1; foreach ($data['angkatan'] as $angkatan): ?>
+            <tr class="hover:bg-gray-50 border-y">
+              <td class="p-2"><?= $no++; ?></td>
+              <td class="p-2"><?= htmlspecialchars($angkatan); ?></td>
+              <td class="p-2">
+                <form method="post" action="<?= BASEURL ?>/admin/hapus_angkatan" class="delete-form">
+                  <input type="hidden" name="angkatan" value="<?= htmlspecialchars($angkatan); ?>">
+                  <button type="button"
+                    class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1 btn-show-modal"
+                    data-angkatan="<?= htmlspecialchars($angkatan); ?>">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                    Hapus
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <?php endforeach; ?>
           </tbody>
         </table>
       </div>
@@ -124,33 +71,25 @@
 </main>
 
 <script>
-  let currentDeleteId = null;
+  let currentDeleteForm = null;
 
-  function showDeleteModal(id) {
-    currentDeleteId = id;
-    document.getElementById('deleteModal').classList.remove('hidden');
-  }
+  // Tampilkan modal saat tombol hapus diklik
+  document.querySelectorAll('.btn-show-modal').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      currentDeleteForm = this.closest('form');
+      document.getElementById('deleteModal').classList.remove('hidden');
+    });
+  });
 
   function closeDeleteModal() {
     document.getElementById('deleteModal').classList.add('hidden');
-    currentDeleteId = null;
+    currentDeleteForm = null;
   }
 
   function confirmDelete() {
-    if (currentDeleteId) {
-      // Hapus row berdasarkan ID
-      // Untuk desktop table
-      const rows = document.querySelectorAll('tbody tr');
-      if (rows[currentDeleteId - 1]) {
-        rows[currentDeleteId - 1].remove();
-      }
-
-      // Untuk mobile cards
-      const cards = document.querySelectorAll('.space-y-4 > div');
-      if (cards[currentDeleteId - 1]) {
-        cards[currentDeleteId - 1].remove();
-      }
-
+    if (currentDeleteForm) {
+      currentDeleteForm.submit();
       closeDeleteModal();
     }
   }
