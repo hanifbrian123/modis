@@ -38,12 +38,26 @@ class Guru extends Controller
     $this->view('templates/footer');
   }
 
-  public function edit_pelanggaran()
+  public function edit_pelanggaran($id = null)
   {
-    $data['title'] = 'Pelanggaran';
-    $this->view('templates/header_guru', $data);
-    $this->view('guru/pelanggaran/edit_pelanggaran', $data);
-    $this->view('templates/footer');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      if ($this->model('Detail_pelanggaran')->editPelanggaranById($_POST) > 0) {
+        Flasher::setFlash('Pelanggaran berhasil diperbarui', 'success');
+        header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
+        exit;
+      } else {
+        Flasher::setFlash('Pelanggaran gagal diperbarui', 'error');
+        header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
+        exit;
+      }
+    } else {
+      $data['title'] = 'Pelanggaran';
+      $data['jenis_pelanggaran'] = $this->model('Pelanggaran')->getAllPelanggaran();
+      $data['pelanggaran'] = $this->model('Detail_pelanggaran')->getPelanggaranById($id);
+      $this->view('templates/header_guru', $data);
+      $this->view('guru/pelanggaran/edit_pelanggaran', $data);
+      $this->view('templates/footer');
+    }
   }
 
   public function hapus_pelanggaran($id)
@@ -58,7 +72,6 @@ class Guru extends Controller
       exit;
     }
   }
-
 
   // KONTROLER UNTUK MENU PEMANGGILAN
   public function pemanggilan()

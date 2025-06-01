@@ -7,4 +7,11 @@ class Pelanggaran
   {
     $this->db = new Database;
   }
+
+  public function getAllPelanggaran()
+  {
+    $statement = "SELECT * FROM pelanggaran;";
+    $this->db->query($statement);
+    return $this->db->resultSet();
+  }
 }
