@@ -1,7 +1,46 @@
-<!-- SESUIKAN UKURAN BOX MAIN -->
-
+<!-- SESUAIKAN UKURAN BOX MAIN -->
 <main class="m-6 p-8 flex-1 bg-[#ffffff] rounded-3xl shadow-lg/25">
   <div>
-    <h1 class="text-2xl font-bold">Laporan Kepada BK</h1>
+    <h1 class="text-2xl font-bold text-center mb-8">Laporan Kepada BK</h1>
   </div>
+
+  <form action="<?= BASEURL ?>/siswa/simpan_laporan" method="POST" enctype="multipart/form-data">
+    <!-- Nama Pelanggar -->
+    <div class="mb-6">
+      <label class="block font-semibold mb-2">Nama Pelanggar <span class="text-red-500">*</span></label>
+      <select name="nis_terlapor" class="w-full bg-blue-200 text-black px-4 py-3 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Pilih nama siswa</option>
+        <?php foreach ($data['siswa'] as $s): ?>
+          <option value="<?= $s['nis'] ?>"><?= $s['nama'] ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+
+    <!-- Jenis Pelanggaran -->
+    <div class="mb-6">
+      <label class="block font-semibold mb-2">Pilih Jenis Pelanggaran</label>
+      <select name="jenis" class="w-full bg-blue-200 text-black px-4 py-3 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <?php  foreach ($data['pelanggaran'] as $p): ?>
+          <option value="<?= $p['ID'] ?>"><?= $p['NamaPelanggaran'] ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+
+    <!-- Bukti Gambar -->
+    <div class="mb-6">
+      <label class="block font-semibold mb-2">Bukti Gambar</label>
+      <input type="file" name="bukti" accept="image/*" class="block w-full text-sm text-black bg-blue-200 rounded-full px-4 py-2 shadow">
+    </div>
+
+    <!-- Deskripsi -->
+    <div class="mb-6">
+      <label class="block font-semibold mb-2">Deskripsi Pelanggaran</label>
+      <textarea name="deskripsi" rows="5" class="w-full bg-blue-200 text-black px-4 py-3 rounded-2xl shadow focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+    </div>
+
+    <!-- Tombol Submit -->
+    <div class="flex justify-end">
+      <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition">Kirim</button>
+    </div>
+  </form>
 </main>

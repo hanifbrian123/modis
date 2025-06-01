@@ -1,0 +1,19 @@
+Array
+(
+    [nis_terlapor] => 002
+    [jenis] => 2
+    [deskripsi] => terlambat bro
+)
+Array
+(
+    [bukti] => Array
+        (
+            [name] => terlambat.jpg
+            [full_path] => terlambat.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php2BF2.tmp
+            [error] => 0
+            [size] => 934536
+        )
+
+)
