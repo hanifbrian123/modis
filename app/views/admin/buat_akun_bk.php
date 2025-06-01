@@ -4,25 +4,27 @@
     <div>
         <h1 class="text-2xl font-bold">Buat Akun Guru BK</h1>
         <br>
-        <form class="space-y-6">
-        <div>
-            <label class="block text-gray-700 font-semibold mb-2">Nama</label>
-            <input type="text" value="2342432"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-        </div>
-
+        <form class="space-y-6" action="<?= BASEURL ?>/admin/buat_akun_bk" method="post">
         <div>
             <label class="block text-gray-700 font-semibold mb-2">NIP</label>
-            <input type="text" value="42424"
+            <input type="text" name="NIP" required
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
         </div>
-
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Nama</label>
+            <input type="text" name="Nama" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+        </div>
+        <div>
+           
+            <input type="hidden" name="Role" value="BK">
+            
+        </div>
         <div>
             <label class="block text-gray-700 font-semibold mb-2">Password</label>
-            <input type="text" value="34342948"
+            <input type="password" name="Password" required
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
         </div>
-
 
         <div class="text-center">
             <button type="submit"
