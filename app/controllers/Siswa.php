@@ -87,9 +87,13 @@ class Siswa extends Controller
   // KONTROLER UNTUK MENU PELANGGARAN
   public function pelanggaran()
   {
+    $_SESSION['user']['nis']='002';
+    $nis = $_SESSION['user']['nis']; // Sementara hardcoded dulu jika belum ada login
+    $data['pelanggaran'] = $this->model('PelanggaranModel')->getByNIS($nis);
     $data['title'] = 'Pelanggaran';
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/pelanggaran/index', $data);
     $this->view('templates/footer');
   }
+
 }

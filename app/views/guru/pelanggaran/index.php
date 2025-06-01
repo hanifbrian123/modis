@@ -30,17 +30,19 @@
         </tr>
       </thead>
       <tbody>
+        <?php $no = 1; foreach ($data['siswa'] as $s): ?>
         <tr class="hover:bg-gray-50 border-y">
-          <td class="p-2">1</td>
-          <td class="p-2">LOREM IPSUM</td>
-          <td class="p-2">3934273487324954</td>
-          <td class="p-2">3</td>
+          <td class="p-2"><?= $no++; ?></td>
+          <td class="p-2"><?= $s['Nama']; ?></td>
+          <td class="p-2"><?= $s['NIS']; ?></td>
+          <td class="p-2"><?= $s['Poin']; ?></td>
           <td class="p-2">
             <button class="bg-orange-400 text-white px-3 py-1 rounded-lg hover:bg-orange-500">
-              Lihat Profil
+              <a href="<?= BASEURL ?>/guru_bk/daftar_pelanggaran/<?= $s['NIS'] ?>" class="btn">Lihat Profil</a>
             </button>
           </td>
         </tr>
+        <?php endforeach; ?>
         <!-- Tambahkan baris lain -->
       </tbody>
     </table>

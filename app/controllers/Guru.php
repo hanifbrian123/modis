@@ -14,6 +14,8 @@ class Guru extends Controller
   public function pelanggaran()
   {
     $data['title'] = 'Pelanggaran';
+    $data['siswa'] = $this->model('PelanggaranModel')->getAkumulasiPelanggaran();
+
     $this->view('templates/header_guru', $data);
     $this->view('guru/pelanggaran/index', $data);
     $this->view('templates/footer');
@@ -130,4 +132,6 @@ class Guru extends Controller
       exit;
     }
   }
+
+
 }

@@ -2,7 +2,7 @@
   <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold">Daftar Pelanggaran</h2>
     <h2 class="bg-[#FF0000] text-white hover:bg-[#C70000] px-4 py-2 rounded-md transition">
-      Total Poin : 12
+      <?= array_sum(array_column($data['pelanggaran'],'Bobot')) ?>
     </h2>
   </div>
 
@@ -21,25 +21,25 @@
       </thead>
       <!-- Table Body -->
       <tbody>
-        <?php for ($i = 1; $i < 5; $i++): ?>
+        <?php $c=0; foreach ($data['pelanggaran'] as $p): $c++; ?>
           <!-- Row -->
           <tr class="border-b border-gray-200 hover:bg-gray-50">
-            <td class="py-4 px-2 text-center">1</td>
-            <td class="py-4 px-2">Telat</td>
+            <td class="py-4 px-2 text-center"><?= $c ?></td>
+            <td class="py-4 px-2"><?= $p['NamaPelanggaran']; ?></td>
             <td class="py-4 px-2">
-              <img src="<?= BASEURL ?>/img/pelanggaran.png" alt="Gambar pelanggaran"
+              <img src="<?= BASEURL ?>/uploads/<?=$p['bukti']?>" alt="Gambar pelanggaran"
                 class="w-24 h-16 object-cover rounded-xl">
             </td>
-            <td class="py-4 px-2">Deskripsi Singkat Pelanggaran</td>
+            <td class="py-4 px-2"><?= $p['Deskripsi']; ?></td>
             <td class="py-4 px-2 text-left">
 
               <button class="bg-[#FF0000] text-white hover:bg-[#C70000] px-4 py-1 rounded-md transition">
-                +3
+                <?= $p['Bobot'] ?>
               </button>
             </td>
           </tr>
 
-        <?php endfor; ?>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </div>
