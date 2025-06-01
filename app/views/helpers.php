@@ -10,3 +10,12 @@ function classStatusPengaduan($status)
         echo "bg-[#FF0000] text-white hover:bg-[#C70000]";
     }
 }
+
+function classStatusUser($role)
+{
+    if ($role == "Siswa") {
+        echo "bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-medium";
+    } else if ($role == "Guru") {
+        echo "bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium";
+    }
+}

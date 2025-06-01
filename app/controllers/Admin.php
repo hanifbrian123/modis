@@ -11,6 +11,7 @@ class Admin extends Controller
     public function index()
     {
         $data['title'] = 'Home';
+        $data['all_user'] = $this->model('User')->getAllUsers();
         $this->view('templates/header_admin', $data);
         $this->view('admin/index', $data);
         $this->view('templates/footer');
@@ -20,7 +21,7 @@ class Admin extends Controller
     public function buat_akun_siswa()
     {
         $data['title'] = 'Buat Akun Siswa';
-        $model = $this->model('Siswa');
+        $model = $this->model('User');
         // Memproses form jika metode request adalah POST
         if (isset($_FILES['excel_file'])) {
             // Cek apakah masuk ke kondisi ini
