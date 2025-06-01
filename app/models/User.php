@@ -63,6 +63,11 @@ class User
       $this->db->query("DELETE FROM Pengaduan WHERE NIS_Terlapor = :nis OR NIS_Pelapor = :nis");
       $this->db->bind('nis', $nis);
       $this->db->execute();
+
+      // Hapus user dengan IDPengenal = NIS
+      $this->db->query("DELETE FROM User WHERE IDPengenal = :nis");
+      $this->db->bind('nis', $nis);
+      $this->db->execute();
     }
 
     // Setelah itu baru hapus siswa
