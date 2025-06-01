@@ -1,3 +1,5 @@
+<?= Flasher::flash(); ?>
+
 <!-- Delete Confirmation Modal -->
 <div id="deleteModal" class="fixed inset-0 bg-black/75 flex items-center justify-center z-50 hidden">
   <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
@@ -50,6 +52,8 @@
     </div>
   </div>
 
+
+
   <!-- Table -->
   <div class="overflow-x-auto">
     <table class="w-full border-collapse">
@@ -84,12 +88,12 @@
                   </svg>
                   Ubah
                 </a>
-                <button onclick="showDeleteModal(1)" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1 font-semibold">
+                <a href="<?= BASEURL; ?>/guru/hapus_pelanggaran/<?= $pelanggaran['id'] ?>" id="hapus" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1 font-semibold">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                   </svg>
                   Hapus
-                </button>
+                </a>
               </div>
             </td>
           </tr>
@@ -102,44 +106,44 @@
 </main>
 
 <!-- Mobile Card View (Hidden on desktop) -->
-<div class="bg-white rounded-lg shadow-md p-6 mx-auto max-w-6xl mt-4 blocl md:hidden">
+<div class="bg-white rounded-lg p-6 mx-auto max-w-6xl block md:hidden h-screen">
   <h2 class="text-2xl font-bold text-gray-800 mb-4">Profile siswa</h2>
   <div class="space-y-2 text-sm mb-6">
     <div class="flex">
       <span class="font-medium w-16">Nama</span>
       <span class="mx-2">:</span>
-      <span>Lorem ipsum sit dolor</span>
+      <span><?= $data['siswa']['Nama'] ?></span>
     </div>
     <div class="flex">
       <span class="font-medium w-16">Kelas</span>
       <span class="mx-2">:</span>
-      <span>12 - 4</span>
+      <span><?= $data['siswa']['Kelas'] ?></span>
     </div>
     <div class="flex">
       <span class="font-medium w-16">NIS</span>
       <span class="mx-2">:</span>
-      <span>231338136123</span>
+      <span><?= $data['siswa']['NIS'] ?></span>
     </div>
   </div>
 
   <!-- Mobile Cards -->
   <div class="space-y-4">
     <!-- Card -->
-    <?php for ($i = 1; $i <= 5; $i++): ?>
+    <?php foreach ($data['daftar_pelanggaran'] as $no => $pelanggaran): ?>
 
-      <div class="border border-gray-200 rounded-lg p-4">
+      <div class="bg-[#ffffff] rounded-lg p-4 shadow-md/15">
 
         <div class="flex justify-between items-start mb-3">
-          <span class="text-lg font-semibold text-gray-800"><?= "#" . $i ?></span>
+          <span class="text-lg font-semibold text-gray-800"><?= "#" . $no + 1 ?></span>
           <div class="flex gap-2">
-            <button class="text-blue-600 text-sm font-medium">Ubah</button>
+            <a class="text-blue-600 text-sm font-medium">Ubah</a>
             <button onclick="showDeleteModal(1)" class="text-red-600 text-sm font-medium">Hapus</button>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-3">
           <div>
             <p class="text-xs text-gray-500 mb-1">Jenis</p>
-            <p class="text-sm font-medium">Telat</p>
+            <p class="text-sm font-medium"><?= $pelanggaran['jenis_pelanggaran'] ?></p>
           </div>
           <div>
             <p class="text-xs text-gray-500 mb-1">Gambar</p>
@@ -147,51 +151,38 @@
               alt="Gambar Pelanggaran"
               class="w-20 h-16 object-cover rounded-xl">
           </div>
-          <div>
+          <div class="text-wrap">
             <p class="text-xs text-gray-500 mb-1">Deskripsi</p>
-            <p class="text-sm">Deskripsi singkat tentang pelanggaran</p>
+            <p class="text-sm overflow-hidden text-ellipsis whitespace-wrap"><?= $pelanggaran['deskripsi'] ?></p>
           </div>
         </div>
       </div>
 
-    <?php endfor; ?>
+    <?php endforeach; ?>
   </div>
 </div>
 
 <script>
-  let currentDeleteId = null;
+  const deleteModal = document.getElementById('deleteModal');
 
-  function showDeleteModal(id) {
-    currentDeleteId = id;
-    document.getElementById('deleteModal').classList.remove('hidden');
+  const showDeleteModal = (e) => {
+    e.preventDefault();
+    deleteModal.classList.remove('hidden');
   }
+  const deleteButton = document.getElementById('hapus');
+  deleteButton.addEventListener('click', showDeleteModal);
 
   function closeDeleteModal() {
-    document.getElementById('deleteModal').classList.add('hidden');
-    currentDeleteId = null;
+    deleteModal.classList.add('hidden');
   }
 
-  function confirmDelete() {
-    if (currentDeleteId) {
-      // Hapus row berdasarkan ID
-      // Untuk desktop table
-      const rows = document.querySelectorAll('tbody tr');
-      if (rows[currentDeleteId - 1]) {
-        rows[currentDeleteId - 1].remove();
-      }
-
-      // Untuk mobile cards
-      const cards = document.querySelectorAll('.space-y-4 > div');
-      if (cards[currentDeleteId - 1]) {
-        cards[currentDeleteId - 1].remove();
-      }
-
-      closeDeleteModal();
-    }
+  const confirmDelete = () => {
+    deleteModal.classList.add('hidden');
+    window.location.href = deleteButton.href;
   }
 
   // Close modal when clicking outside
-  document.getElementById('deleteModal').addEventListener('click', function(e) {
+  deleteModal.addEventListener('click', function(e) {
     if (e.target === this) {
       closeDeleteModal();
     }

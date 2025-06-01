@@ -46,6 +46,19 @@ class Guru extends Controller
     $this->view('templates/footer');
   }
 
+  public function hapus_pelanggaran($id)
+  {
+    if ($this->model('Detail_pelanggaran')->deletePelanggaranById($id) > 0) {
+      Flasher::setFlash('Pelanggaran berhasil dihapus', 'success');
+      header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
+      exit;
+    } else {
+      Flasher::setFlash('Pelanggaran berhasil dihapus', 'error');
+      header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
+      exit;
+    }
+  }
+
 
   // KONTROLER UNTUK MENU PEMANGGILAN
   public function pemanggilan()
