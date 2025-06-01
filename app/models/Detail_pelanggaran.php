@@ -30,4 +30,14 @@ class Detail_pelanggaran
     $this->db->bind(":nis", $nis);
     return $this->db->resultSet();
   }
+
+  public function deletePelanggaranById($id)
+  {
+    $this->db->query(
+      "DELETE FROM `detailpelanggaran` WHERE ID = :id;"
+    );
+    $this->db->bind(":id", $id);
+    $this->db->execute();
+    return $this->db->rowCount();
+  }
 }
