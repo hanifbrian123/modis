@@ -16,43 +16,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="hover:bg-gray-50 border-y">
-              <td class="p-2">1</td>
-              <td class="p-2">Ahmad Fauzi</td>
-              <td class="p-2">Budi Santoso</td>
-              <td class="p-2">081234567890</td>
-              <td class="p-2">
-                <span class="inline-block bg-green-500 text-white px-5 py-1 rounded text-sm font-semibold">Terkirim</span>
-              </td>
-              <td class="p-2">
-                <span class="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold">15</span>
-              </td>
-            </tr>
-            <tr class="hover:bg-gray-50 border-y">
-              <td class="p-2">2</td>
-              <td class="p-2">Siti Aminah</td>
-              <td class="p-2">Rina Dewi</td>
-              <td class="p-2">082233445566</td>
-              <td class="p-2">
-                <a href="<?= BASEURL ?>/guru/detail_pemanggilan/1/" class="inline-block bg-yellow-400 text-white px-5 py-1 rounded text-sm font-semibold hover:bg-yellow-500 transition">Kirim Pesan</a>
-              </td>
-              <td class="p-2">
-                <span class="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold">10</span>
-              </td>
-            </tr>
-            <tr class="hover:bg-gray-50 border-y">
-              <td class="p-2">3</td>
-              <td class="p-2">Rizky Pratama</td>
-              <td class="p-2">Slamet Riyadi</td>
-              <td class="p-2">089876543210</td>
-              <td class="p-2">
-                <a href="<?= BASEURL ?>/guru/detail_pemanggilan/2/" class="inline-block bg-yellow-400 text-white px-5 py-1 rounded text-sm font-semibold hover:bg-yellow-500 transition">Kirim Pesan</a>
-              </td>
-              <td class="p-2 ">
-                <span class="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold">8</span>
-              </td>
-            </tr>
+            <?php $no = 1; foreach ($data['pemanggilan'] as $p): ?>
+              <tr class="hover:bg-gray-50 border-y">
+                <td class="p-2"><?= $p['PemanggilanID'] ?></td>
+                <td class="p-2"><?= $p['NamaSiswa'] ?></td>
+                <td class="p-2"><?= $p['NamaOrtu'] ?></td>
+                <td class="p-2"><?= $p['NoTelOrtu'] ?></td>
+                <td class="p-2">
+                  <?php if ($p['Status_Pemanggilan'] == 'Terkirim'): ?>
+                    <span class="inline-block bg-green-500 text-white px-5 py-1 rounded text-sm font-semibold">Terkirim</span>
+                  <?php else: ?>
+                    <a href="<?= BASEURL ?>/guru/detail_pemanggilan/<?= $p['PemanggilanID'] ?>"
+                      class="inline-block bg-yellow-400 text-white px-5 py-1 rounded text-sm font-semibold hover:bg-yellow-500 transition">
+                      Kirim Pesan <?= $p['PemanggilanID'] ?>
+                    </a>
+                  <?php endif; ?>
+                </td>
+                <td class="p-2">
+                  <span class="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold"><?= $p['TotalPoin'] ?></span>
+                </td>
+              </tr>
+            <?php endforeach; ?>
           </tbody>
+
         </table>
       </div>
     </div>

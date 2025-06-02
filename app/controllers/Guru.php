@@ -24,6 +24,8 @@ class Guru extends Controller
   public function tambah_pelanggaran()
   {
     $data['title'] = 'Pelanggaran';
+    $data['siswa'] = $this->model('SiswaModel')->getNisNamaSiswa(); // list siswa
+    $data['pelanggaran'] = $this->model('PelanggaranModel')->getJenis(); // list pelanggaran
     $this->view('templates/header_guru', $data);
     $this->view('guru/pelanggaran/tambah_pelanggaran', $data);
     $this->view('templates/footer');
@@ -79,11 +81,11 @@ class Guru extends Controller
   public function pemanggilan()
   {
     $data['title'] = 'Pemanggilan';
+    $data['pemanggilan'] = $this->model('PelanggaranModel')->getDaftarPemanggilan();
     $this->view('templates/header_guru', $data);
     $this->view('guru/pemanggilan/index', $data);
     $this->view('templates/footer');
   }
-
 
   public function detail_pemanggilan()
   {
@@ -132,6 +134,39 @@ class Guru extends Controller
       exit;
     }
   }
+
+  public function simpan()
+  {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nis = $_POST['nis'];
+        $pelanggaranID = $_POST['pelanggaran'];
+        $deskripsi = $_POST['deskripsi'];
+
+        // handle file upload
+        $bukti = null;
+        if (isset($_FILES['bukti']) && $_FILES['bukti']['error'] === UPLOAD_ERR_OK) {
+            $file=$_FILES['bukti'];
+            $namaSementara=$file['tmp_name'];
+            $namaAsli=basename($file['name']);
+            $ext=pathinfo($namaAsli,PATHINFO_EXTENSION);
+            $namaFile = uniqid() . '.' . $ext;
+            move_uploaded_file($namaSementara, __DIR__ . '/../../public/uploads/' . $namaFile);
+            $bukti = $namaFile;
+        }else{
+          die('error saat upload!');
+        }
+
+        $this->model('PelanggaranModel')->insert([
+            'nis' => $nis,
+            'pelanggaran' => $pelanggaranID,
+            'deskripsi' => $deskripsi,
+            'bukti' => $bukti,
+        ]);
+        header('Location: ' . BASEURL . '/guru/pelanggaran'); // kembali ke daftar
+        exit;
+    }
+  }
+
 
 
 }
