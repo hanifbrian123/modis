@@ -12,14 +12,16 @@ class Pengaduan
     {
         $this->db->query(
             "SELECT 
-                s.nama AS nama,
-                p.jenis_pelanggaran,
-                p.deskripsi,
-                p.status
+            s.nama AS nama,
+            pel.NamaPelanggaran jenis_pelanggaran,
+            p.deskripsi,
+            p.status
             FROM 
                 pengaduan p
             JOIN 
-                siswa s ON p.nis_terlapor = s.nis"
+                siswa s ON p.nis_terlapor = s.nis
+            LEFT JOIN 
+                pelanggaran pel ON pel.ID = p.IDPelanggaran"
         );
         return $this->db->resultSet();
     }
