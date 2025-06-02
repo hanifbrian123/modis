@@ -19,10 +19,10 @@
       </thead>
       <!-- Table Body -->
       <tbody>
-        <?php foreach ($data['daftar_pengaduan'] as $pengaduan): ?>
+        <?php foreach ($data['daftar_pengaduan'] as $no => $pengaduan): ?>
           <!-- Row -->
           <tr class="border-b border-gray-200 hover:bg-gray-50">
-            <td class="py-4 px-2 text-center"></td>
+            <td class="py-4 px-2 text-center"><?= $no + 1 ?></td>
             <td class="py-4 px-2"><?= $pengaduan['nama'] ?></td>
             <td class="py-4 px-2"><?= $pengaduan['jenis_pelanggaran'] ?></td>
             <td class="py-4 px-2">
