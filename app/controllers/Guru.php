@@ -6,9 +6,25 @@ class Guru extends Controller
   {
     requireRole('BK');
     $data['title'] = 'Laporan';
+    $data['laporan'] = $this->model('Pengaduan')->getAllLaporan(); // Ambil semua laporan
     $this->view('templates/header_guru', $data);
     $this->view('guru/laporan/index', $data);
     $this->view('templates/footer');
+  }
+
+  public function tolak_laporan($id)
+  {
+    requireRole('BK');
+    $this->model('Pengaduan')->tolakLaporan($id);
+    header('Location: ' . BASEURL . '/guru/laporan');
+    exit;
+  }
+  public function terima_laporan($id)
+  {
+    requireRole('BK');
+    $this->model('Pengaduan')->terimaLaporan($id);
+    header('Location: ' . BASEURL . '/guru/laporan');
+    exit;
   }
 
   // KONTROLER UNTUK MENU PELANGGARAN
