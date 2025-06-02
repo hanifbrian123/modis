@@ -57,7 +57,6 @@ class Siswa extends Controller
   {
     requireRole('User');
     $data['title'] = 'Konsultasi';
-    $_SESSION['nis'] = 3333; // Simulasi NIS siswa yang login
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/konsultasi/kirim_pesan', $data);
     $this->view('templates/footer');
@@ -77,7 +76,7 @@ class Siswa extends Controller
   {
     requireRole('User');
     $data['title'] = 'Konsultasi';
-    $data['pesan_pribadi'] = $this->model('Pesan_konsultasi')->getPesanByNIS(3333);
+    $data['pesan_pribadi'] = $this->model('Pesan_konsultasi')->getPesanByNIS($_SESSION['IDPengenal']);
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/konsultasi/lihat_pesan', $data);
     $this->view('templates/footer');

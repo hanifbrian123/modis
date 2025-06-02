@@ -6,7 +6,7 @@
 
   <form action="<?= BASEURL ?>/siswa/kirimpesan" method="post">
 
-    <input type="text" name="nis" value="<?= $_SESSION['nis'] ?>" hidden>
+    <input type="text" name="nis" value="<?= $_SESSION['IDPengenal'] ?>" hidden>
     <!-- Topik Pesan -->
     <div class="mb-6">
       <label class="block font-semibold mb-2">Pilih Topik Pesan <span class="text-red-500">*</span></label>
