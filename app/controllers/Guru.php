@@ -4,6 +4,7 @@ class Guru extends Controller
   // KONTROLER UNTUK MENU LAPORAN
   public function index()
   {
+    requireRole('BK');
     $data['title'] = 'Laporan';
     $this->view('templates/header_guru', $data);
     $this->view('guru/laporan/index', $data);
@@ -13,6 +14,7 @@ class Guru extends Controller
   // KONTROLER UNTUK MENU PELANGGARAN
   public function pelanggaran()
   {
+    requireRole('BK');
     $data['title'] = 'Pelanggaran';
     $data['siswa'] = $this->model('PelanggaranModel')->getAkumulasiPelanggaran();
 
@@ -23,6 +25,7 @@ class Guru extends Controller
 
   public function tambah_pelanggaran()
   {
+    requireRole('BK');
     $data['title'] = 'Pelanggaran';
     $data['siswa'] = $this->model('SiswaModel')->getNisNamaSiswa(); // list siswa
     $data['pelanggaran'] = $this->model('PelanggaranModel')->getJenis(); // list pelanggaran
@@ -34,6 +37,7 @@ class Guru extends Controller
   // MASIH MENGGUNAKAN STATIC NIS (siswa001)
   public function daftar_pelanggaran($nis = "siswa001")
   {
+    requireRole('BK');
     $data['title'] = 'Pelanggaran';
     $data['siswa'] = $this->model('Siswa')->getSiswaByNIS($nis);
     $data['daftar_pelanggaran'] = $this->model('Detail_pelanggaran')->getAllPelanggaranByNIS($nis);
@@ -44,6 +48,7 @@ class Guru extends Controller
 
   public function edit_pelanggaran($id = null)
   {
+    requireRole('BK');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($this->model('Detail_pelanggaran')->editPelanggaranById($_POST) > 0) {
         Flasher::setFlash('Pelanggaran berhasil diperbarui', 'success');
@@ -66,6 +71,7 @@ class Guru extends Controller
 
   public function hapus_pelanggaran($id)
   {
+    requireRole('BK');
     if ($this->model('Detail_pelanggaran')->deletePelanggaranById($id) > 0) {
       Flasher::setFlash('Pelanggaran berhasil dihapus', 'success');
       header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
@@ -80,6 +86,7 @@ class Guru extends Controller
   // KONTROLER UNTUK MENU PEMANGGILAN
   public function pemanggilan()
   {
+    requireRole('BK');
     $data['title'] = 'Pemanggilan';
     $data['pemanggilan'] = $this->model('PelanggaranModel')->getDaftarPemanggilan();
     $this->view('templates/header_guru', $data);
@@ -89,6 +96,7 @@ class Guru extends Controller
 
   public function detail_pemanggilan()
   {
+    requireRole('BK');
     $data['title'] = 'Pemanggilan';
     $this->view('templates/header_guru', $data);
     $this->view('guru/pemanggilan/detail_pemanggilan', $data);
@@ -98,6 +106,7 @@ class Guru extends Controller
   // KONTROLER UNTUK MENU KONSELING
   public function konseling()
   {
+    requireRole('BK');
     $data['title'] = 'Konseling';
     $data['pesan_konsultasi'] = $this->model('Pesan_konsultasi')->getAllPesan();
     $this->view('templates/header_guru', $data);
@@ -107,6 +116,7 @@ class Guru extends Controller
 
   public function detail_pesan()
   {
+    requireRole('BK');
     $data['title'] = 'Konseling';
     $data['satu_pesan'] = $this->model('Pesan_konsultasi')->getPesanByIdPesan($_POST['id_pesan']);
     $this->view('templates/header_guru', $data);
@@ -116,6 +126,7 @@ class Guru extends Controller
 
   public function balas_pesan()
   {
+    requireRole('BK');
     $data['title'] = 'Konseling';
     $this->view('templates/header_guru', $data);
     $this->view('guru/konseling/balas_pesan', $data);
@@ -124,6 +135,7 @@ class Guru extends Controller
 
   public function kirimBalasan()
   {
+    requireRole('BK');
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Validasi input
       if (!empty($_POST['balasan'])) {
@@ -138,35 +150,32 @@ class Guru extends Controller
   public function simpan()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nis = $_POST['nis'];
-        $pelanggaranID = $_POST['pelanggaran'];
-        $deskripsi = $_POST['deskripsi'];
+      $nis = $_POST['nis'];
+      $pelanggaranID = $_POST['pelanggaran'];
+      $deskripsi = $_POST['deskripsi'];
 
-        // handle file upload
-        $bukti = null;
-        if (isset($_FILES['bukti']) && $_FILES['bukti']['error'] === UPLOAD_ERR_OK) {
-            $file=$_FILES['bukti'];
-            $namaSementara=$file['tmp_name'];
-            $namaAsli=basename($file['name']);
-            $ext=pathinfo($namaAsli,PATHINFO_EXTENSION);
-            $namaFile = uniqid() . '.' . $ext;
-            move_uploaded_file($namaSementara, __DIR__ . '/../../public/uploads/' . $namaFile);
-            $bukti = $namaFile;
-        }else{
-          die('error saat upload!');
-        }
+      // handle file upload
+      $bukti = null;
+      if (isset($_FILES['bukti']) && $_FILES['bukti']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['bukti'];
+        $namaSementara = $file['tmp_name'];
+        $namaAsli = basename($file['name']);
+        $ext = pathinfo($namaAsli, PATHINFO_EXTENSION);
+        $namaFile = uniqid() . '.' . $ext;
+        move_uploaded_file($namaSementara, __DIR__ . '/../../public/uploads/' . $namaFile);
+        $bukti = $namaFile;
+      } else {
+        die('error saat upload!');
+      }
 
-        $this->model('PelanggaranModel')->insert([
-            'nis' => $nis,
-            'pelanggaran' => $pelanggaranID,
-            'deskripsi' => $deskripsi,
-            'bukti' => $bukti,
-        ]);
-        header('Location: ' . BASEURL . '/guru/pelanggaran'); // kembali ke daftar
-        exit;
+      $this->model('PelanggaranModel')->insert([
+        'nis' => $nis,
+        'pelanggaran' => $pelanggaranID,
+        'deskripsi' => $deskripsi,
+        'bukti' => $bukti,
+      ]);
+      header('Location: ' . BASEURL . '/guru/pelanggaran'); // kembali ke daftar
+      exit;
     }
   }
-
-
-
 }

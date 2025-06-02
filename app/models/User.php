@@ -8,6 +8,15 @@ class User
     $this->db = new Database;
   }
 
+  public function login($IDPengenal, $password)
+  {
+    $this->db->query("SELECT * FROM User WHERE IDPengenal = :IDPengenal AND password = :password");
+    $this->db->bind(':IDPengenal', $IDPengenal);
+    $this->db->bind(':password', $password);
+
+    return $this->db->single();
+  }
+
   public function createBK($dataUser, $dataBK)
   {
     // Insert ke tabel User

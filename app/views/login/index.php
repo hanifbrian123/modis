@@ -28,11 +28,11 @@
 
     <div class="mt-10 sm:mx-auto sm:w-1/2 sm:max-w-sm bg-white rounded-lg shadow-lg/30 p-6">
       <h4 class="text-2xl font-bold text-center mb-8">Login</h4>
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" action="<?= BASEURL; ?>/login/auth" method="POST">
         <div>
           <label for="nis" class="block text-sm/6 font-medium text-gray-900">NIS/NIP</label>
           <div class="mt-2">
-            <input type="text" name="nis" id="nis" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-dark placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-yellow-500 sm:text-sm/6">
+            <input type="text" name="IDPengenal" id="nis" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-dark placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-yellow-500 sm:text-sm/6">
           </div>
         </div>
 

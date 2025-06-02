@@ -1,6 +1,7 @@
 <?php
 // require 'C:\xampp\htdocs\modis\vendor\autoload.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
+
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
@@ -10,6 +11,7 @@ class Admin extends Controller
     // Controller untuk menu home
     public function index()
     {
+        requireRole('Admin');
         $data['title'] = 'Home';
         $data['all_user'] = $this->model('User')->getAllUsers();
         $this->view('templates/header_admin', $data);
@@ -20,6 +22,7 @@ class Admin extends Controller
     //  Controller untuk menu buat akun siswa
     public function buat_akun_siswa()
     {
+        requireRole('Admin');
         $data['title'] = 'Buat Akun Siswa';
         $model = $this->model('User');
         // Memproses form jika metode request adalah POST
@@ -49,7 +52,7 @@ class Admin extends Controller
                         $highestRow = $sheet->getHighestRow();
                         $highestColumn = $sheet->getHighestColumn();
 
-                    
+
                         // Ambil header/nama kolom dari baris pertama (opsional, tergantung struktur Excel Anda)
                         // Jika baris pertama adalah header, Anda bisa membacanya dan menggunakannya untuk SQL
                         // $header = $sheet->rangeToArray('A1:' . $highestColumn . '1', NULL, TRUE, FALSE)[0];
@@ -74,17 +77,15 @@ class Admin extends Controller
                             $kolom_value['NoTelOrtu'] = $data[0][4]; // Kolom E
                             $kolom_value['Password'] = bin2hex($pass); //password acak
                             $kolom_value['Angkatan'] = $_POST['angkatan']; // Ambil dari input form
-                            
+
                             $model->buatAkunSiswa($kolom_value);
                         }
-                        
                     } catch (Exception $e) {
                         die("Error membaca file Excel: " . $e->getMessage());
                     }
                 } else {
                     echo "Ekstensi file tidak valid. Hanya .xlsx dan .xls yang diizinkan.";
                 }
-                
             }
             header('Location: ' . BASEURL . '/admin');
             exit;
@@ -97,6 +98,7 @@ class Admin extends Controller
     //  Controller untuk menu buat akun guru bk
     public function buat_akun_bk()
     {
+        requireRole('Admin');
         // Mengatur judul halaman
         $data['title'] = 'Buat Akun BK';
 
@@ -131,6 +133,7 @@ class Admin extends Controller
     //  Controller untuk menu hapus angkatan
     public function hapus_angkatan()
     {
+        requireRole('Admin');
         $data['title'] = 'Hapus Angkatan';
         $model = $this->model('User');
 
