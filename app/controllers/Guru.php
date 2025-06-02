@@ -94,13 +94,14 @@ class Guru extends Controller
     $this->view('templates/footer');
   }
 
-  public function detail_pemanggilan()
+  public function detail_pemanggilan($id)
   {
-    requireRole('BK');
-    $data['title'] = 'Pemanggilan';
-    $this->view('templates/header_guru', $data);
-    $this->view('guru/pemanggilan/detail_pemanggilan', $data);
-    $this->view('templates/footer');
+      $data['title'] = 'Detail Pemanggilan';
+      $data['detail'] = $this->model('Pemanggilan')->getDetailPemanggilan($id);
+      $data['pelanggaran'] = $this->model('Pemanggilan')->getPelanggaranByPemanggilan($id);
+      $this->view('templates/header_guru', $data);
+      $this->view('guru/pemanggilan/detail_pemanggilan', $data);
+      $this->view('templates/footer');
   }
 
   // KONTROLER UNTUK MENU KONSELING
@@ -177,5 +178,63 @@ class Guru extends Controller
       header('Location: ' . BASEURL . '/guru/pelanggaran'); // kembali ke daftar
       exit;
     }
+  }
+
+  public function kirim_pemanggilan()
+  {
+    // Ambil data dari POST
+    $nis = $_POST['nis'];
+    $pemanggilan_id = $_POST['pemanggilan_id'];
+
+    // Ambil data siswa dan ortu dari database
+    $detail = $this->model('Pemanggilan')->getSiswaOrtuByNIS($nis);
+
+    // Buat pesan WhatsApp
+    $pesan = "Yth. " . $detail['NamaOrtu'] . ",\n"
+           . "Ananda " . $detail['Nama'] . " kelas " . $detail['Kelas'] . " telah melanggar tata tertib sekolah. "
+           . "Mohon kehadiran Bapak/Ibu ke sekolah untuk konsultasi lebih lanjut.";
+
+    // Kirim ke WhatsApp via Fonnte API
+    $token = 'HLWHiQzENf1Snsb1B2Rr'; // Ganti dengan token asli Anda
+    $target = $detail['NoTelOrtu'];
+    $target = preg_replace('/^0/', '62', $target); // Pastikan format nomor Indonesia
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.fonnte.com/send',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => array(
+            'target' => $target,
+            'message' => $pesan,
+            'countryCode' => '62',
+        ),
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: ' . $token
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    if (curl_errno($curl)) {
+        $error_msg = curl_error($curl);
+    }
+    curl_close($curl);
+
+    // Update status pemanggilan jika perlu
+    $this->model('Pemanggilan')->setStatusTerkirim($pemanggilan_id);
+
+    // Redirect kembali ke halaman pemanggilan dengan pesan sukses/gagal
+    if (isset($error_msg)) {
+        $_SESSION['flash'] = "Gagal mengirim WhatsApp: $error_msg";
+    } else {
+        $_SESSION['flash'] = "Pesan WhatsApp berhasil dikirim!";
+    }
+    header('Location: ' . BASEURL . '/guru/pemanggilan');
+    exit;
   }
 }
