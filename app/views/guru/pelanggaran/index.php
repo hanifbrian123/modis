@@ -12,7 +12,7 @@
       </div>
       <button
         class="w-full sm:w-auto border-2 border-gray-950 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-        Tambah pelanggaran
+        <a href="<?= BASEURL ?>/guru/tambah_pelanggaran/" class="btn">Tambah Pelanggaran</a>
       </button>
     </div>
   </div>
@@ -47,18 +47,4 @@
       </tbody>
     </table>
   </div>
-
-  <!-- Pagination -->
-  <div class="flex flex-col sm:flex-row justify-between items-center mt-6 gap-2 sm:gap-0">
-    <p class="text-sm text-center sm:text-left">Page 1 of 50</p>
-    <div class="flex space-x-1">
-      <button class="px-3 py-1 border rounded hover:bg-gray-100">Prev</button>
-      <button class="px-3 py-1 border rounded bg-blue-600 text-white">1</button>
-      <button class="px-3 py-1 border rounded hover:bg-gray-100">2</button>
-      <button class="px-3 py-1 border rounded hover:bg-gray-100">3</button>
-      <button class="px-3 py-1 border rounded hover:bg-gray-100">4</button>
-      <button class="px-3 py-1 border rounded hover:bg-gray-100">Next</button>
-    </div>
-  </div>
-
 </main>

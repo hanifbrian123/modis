@@ -87,7 +87,11 @@ class Siswa extends Controller
   // KONTROLER UNTUK MENU PELANGGARAN
   public function pelanggaran()
   {
-    $_SESSION['user']['nis']='002';
+    if (!isset($_SESSION)) session_start();
+    $_SESSION['user'] = [
+        'nis' => '002',
+        'nama' => 'Andi'
+    ];
     $nis = $_SESSION['user']['nis']; // Sementara hardcoded dulu jika belum ada login
     $data['pelanggaran'] = $this->model('PelanggaranModel')->getByNIS($nis);
     $data['title'] = 'Pelanggaran';
