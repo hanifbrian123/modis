@@ -6,7 +6,7 @@ class Siswa extends Controller
   {
     requireRole('User');
     $data['title'] = 'Home';
-    $data['daftar_pengaduan'] = $this->model('Pengaduan')->getDaftarLaporan();
+    $data['daftar_pengaduan'] = $this->model('Pengaduan')->getDaftarLaporanByNIS($_SESSION['IDPengenal']);
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/home/index', $data);
     $this->view('templates/footer');
