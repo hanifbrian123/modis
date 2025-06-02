@@ -96,13 +96,7 @@ class Siswa extends Controller
   public function pelanggaran()
   {
     requireRole('User');
-    if (!isset($_SESSION)) session_start();
-    $_SESSION['user'] = [
-      'nis' => '002',
-      'nama' => 'Andi'
-    ];
-    $nis = $_SESSION['user']['nis']; // Sementara hardcoded dulu jika belum ada login
-    $data['pelanggaran'] = $this->model('PelanggaranModel')->getByNIS($nis);
+    $data['pelanggaran'] = $this->model('PelanggaranModel')->getByNIS($_SESSION['IDPengenal']);
     $data['title'] = 'Pelanggaran';
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/pelanggaran/index', $data);
