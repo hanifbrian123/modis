@@ -75,7 +75,7 @@
             <td class="py-4 px-2 text-center"><?= $no + 1 ?></td>
             <td class="py-4 px-2"><?= $pelanggaran['jenis_pelanggaran'] ?></td>
             <td class="py-4 px-2">
-              <img src="<?= BASEURL ?>/img/pelanggaran.png"
+              <img src="<?= BASEURL ?>/uploads/<?= $pelanggaran['bukti'] ?>"
                 alt="Gambar pelanggaran"
                 class="w-24 h-16 object-cover rounded-xl">
             </td>
@@ -147,7 +147,7 @@
           </div>
           <div>
             <p class="text-xs text-gray-500 mb-1">Gambar</p>
-            <img src="<?= BASEURL ?>/img/pelanggaran.png"
+            <img src="<?= BASEURL ?>/uploads/<?= $pelanggaran['bukti'] ?>"
               alt="Gambar Pelanggaran"
               class="w-20 h-16 object-cover rounded-xl">
           </div>
