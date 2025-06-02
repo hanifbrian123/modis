@@ -38,7 +38,7 @@
           <td class="p-2"><?= $s['Poin']; ?></td>
           <td class="p-2">
             <button class="bg-orange-400 text-white px-3 py-1 rounded-lg hover:bg-orange-500">
-              <a href="<?= BASEURL ?>/guru_bk/daftar_pelanggaran/<?= $s['NIS'] ?>" class="btn">Lihat Profil</a>
+              <a href="<?= BASEURL ?>/guru/daftar_pelanggaran/<?= $s['NIS'] ?>" class="btn">Lihat Profil</a>
             </button>
           </td>
         </tr>
