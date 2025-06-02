@@ -69,16 +69,16 @@ class Guru extends Controller
     }
   }
 
-  public function hapus_pelanggaran($id)
+  public function hapus_pelanggaran($nis, $id)
   {
     requireRole('BK');
     if ($this->model('Detail_pelanggaran')->deletePelanggaranById($id) > 0) {
       Flasher::setFlash('Pelanggaran berhasil dihapus', 'success');
-      header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
+      header('Location: ' . BASEURL . '/guru/daftar_pelanggaran/' . $nis);
       exit;
     } else {
       Flasher::setFlash('Pelanggaran berhasil dihapus', 'error');
-      header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
+      header('Location: ' . BASEURL . '/guru/daftar_pelanggaran/' . $nis);
       exit;
     }
   }
@@ -96,12 +96,12 @@ class Guru extends Controller
 
   public function detail_pemanggilan($id)
   {
-      $data['title'] = 'Detail Pemanggilan';
-      $data['detail'] = $this->model('Pemanggilan')->getDetailPemanggilan($id);
-      $data['pelanggaran'] = $this->model('Pemanggilan')->getPelanggaranByPemanggilan($id);
-      $this->view('templates/header_guru', $data);
-      $this->view('guru/pemanggilan/detail_pemanggilan', $data);
-      $this->view('templates/footer');
+    $data['title'] = 'Detail Pemanggilan';
+    $data['detail'] = $this->model('Pemanggilan')->getDetailPemanggilan($id);
+    $data['pelanggaran'] = $this->model('Pemanggilan')->getPelanggaranByPemanggilan($id);
+    $this->view('templates/header_guru', $data);
+    $this->view('guru/pemanggilan/detail_pemanggilan', $data);
+    $this->view('templates/footer');
   }
 
   // KONTROLER UNTUK MENU KONSELING
@@ -191,8 +191,8 @@ class Guru extends Controller
 
     // Buat pesan WhatsApp
     $pesan = "Yth. " . $detail['NamaOrtu'] . ",\n"
-           . "Ananda " . $detail['Nama'] . " kelas " . $detail['Kelas'] . " telah melanggar tata tertib sekolah. "
-           . "Mohon kehadiran Bapak/Ibu ke sekolah untuk konsultasi lebih lanjut.";
+      . "Ananda " . $detail['Nama'] . " kelas " . $detail['Kelas'] . " telah melanggar tata tertib sekolah. "
+      . "Mohon kehadiran Bapak/Ibu ke sekolah untuk konsultasi lebih lanjut.";
 
     // Kirim ke WhatsApp via Fonnte API
     $token = 'HLWHiQzENf1Snsb1B2Rr'; // Ganti dengan token asli Anda
@@ -201,27 +201,27 @@ class Guru extends Controller
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://api.fonnte.com/send',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array(
-            'target' => $target,
-            'message' => $pesan,
-            'countryCode' => '62',
-        ),
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: ' . $token
-        ),
+      CURLOPT_URL => 'https://api.fonnte.com/send',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => array(
+        'target' => $target,
+        'message' => $pesan,
+        'countryCode' => '62',
+      ),
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: ' . $token
+      ),
     ));
 
     $response = curl_exec($curl);
     if (curl_errno($curl)) {
-        $error_msg = curl_error($curl);
+      $error_msg = curl_error($curl);
     }
     curl_close($curl);
 
@@ -230,9 +230,9 @@ class Guru extends Controller
 
     // Redirect kembali ke halaman pemanggilan dengan pesan sukses/gagal
     if (isset($error_msg)) {
-        $_SESSION['flash'] = "Gagal mengirim WhatsApp: $error_msg";
+      $_SESSION['flash'] = "Gagal mengirim WhatsApp: $error_msg";
     } else {
-        $_SESSION['flash'] = "Pesan WhatsApp berhasil dikirim!";
+      $_SESSION['flash'] = "Pesan WhatsApp berhasil dikirim!";
     }
     header('Location: ' . BASEURL . '/guru/pemanggilan');
     exit;
