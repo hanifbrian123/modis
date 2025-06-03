@@ -3,7 +3,7 @@
   <h2 class="text-xl font-semibold text-gray-800 text-center mb-6">Edit Pelangggaran</h2>
 
   <!-- Form -->
-  <form action="<?= BASEURL; ?>/guru/edit_pelanggaran" method="POST" class="space-y-4">
+  <form action="<?= BASEURL; ?>/guru/edit_pelanggaran/<?= $data['pelanggaran']['NIS'] ?>/<?= $data['pelanggaran']['ID'] ?>" method="POST" class="space-y-4">
     <input type="hidden" name="id" value="<?= $data['pelanggaran']['ID'] ?>">
     <!-- Pilih Jenis Pelangggaran -->
     <div>

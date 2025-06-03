@@ -12,7 +12,8 @@ class Detail_pelanggaran
   {
     $this->db->query(
       "SELECT
-        dp.ID AS id,
+        dp.NIS AS NIS,
+        dp.ID AS ID,
         dp.bukti AS bukti,
         p.NamaPelanggaran AS jenis_pelanggaran, 
         dp.Deskripsi AS deskripsi

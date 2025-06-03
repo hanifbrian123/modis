@@ -62,17 +62,17 @@ class Guru extends Controller
     $this->view('templates/footer');
   }
 
-  public function edit_pelanggaran($id = null)
+  public function edit_pelanggaran($nis = null, $id = null)
   {
     requireRole('BK');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($this->model('Detail_pelanggaran')->editPelanggaranById($_POST) > 0) {
         Flasher::setFlash('Pelanggaran berhasil diperbarui', 'success');
-        header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
+        header('Location: ' . BASEURL . '/guru/daftar_pelanggaran/' . $nis);
         exit;
       } else {
         Flasher::setFlash('Pelanggaran gagal diperbarui', 'error');
-        header('Location: ' . BASEURL . '/guru/daftar_pelanggaran');
+        header('Location: ' . BASEURL . '/guru/daftar_pelanggaran/' . $nis);
         exit;
       }
     } else {
