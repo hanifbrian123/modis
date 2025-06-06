@@ -1,12 +1,10 @@
 <?php 
 class PelanggaranModel{
     private $db;
-    // private $pemanggilanModel;
 
     public function __construct()
     {
         $this->db = new Database;
-        // $this->pemanggilanModel = new Pemanggilan;
     }
     public function getJenis()
     {
@@ -50,9 +48,6 @@ class PelanggaranModel{
         $this->db->bind('deskripsi', $data['deskripsi']);
         $this->db->bind('bukti', $data['bukti']);
         $this->db->execute();
-
-        // Otomatis periksa dan atur pemanggilan
-        // $this->pemanggilanModel->periksaDanAturPemanggilan($data['nis']);
 
         return ($this->db->rowCount());
     }

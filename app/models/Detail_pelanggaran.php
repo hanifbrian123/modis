@@ -2,14 +2,10 @@
 class Detail_pelanggaran
 {
   private $db;
-  // private $pemanggilanModel;
-
   public function __construct()
   {
     
     $this->db = new Database;
-    // $this->pemanggilanModel = new Pemanggilan;
-    
   }
 
   public function getAllPelanggaranByNIS($nis)
@@ -52,9 +48,6 @@ class Detail_pelanggaran
     );
     $this->db->bind(":id", $id);
     $this->db->execute();
-
-    // Otomatis periksa dan atur pemanggilan
-    // $this->pemanggilanModel->periksaDanAturPemanggilan($id);
 
     return $this->db->rowCount();
   }

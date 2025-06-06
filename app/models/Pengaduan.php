@@ -81,8 +81,14 @@ class Pengaduan
         $this->db->bind('pelanggaran', $laporan['IDPelanggaran']);
         $this->db->bind('deskripsi', $laporan['Deskripsi']);
         $this->db->bind('bukti', $laporan['bukti'] ?? '');
-        $this->db->execute();   
+        $this->db->execute();
 
+        // 4. Periksa & atur pemanggilan
+        require_once 'Pemanggilan.php';
+        $pemanggilan = new Pemanggilan();
+        $pemanggilan->periksaDanAturPemanggilan($laporan['NIS_Terlapor']);
+
+        
         return true;
     }
 
