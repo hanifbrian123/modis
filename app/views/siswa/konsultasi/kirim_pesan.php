@@ -11,7 +11,7 @@
     <div class="mb-6">
       <label class="block font-semibold mb-2">Pilih Topik Pesan <span class="text-red-500">*</span></label>
       <select name="topikpesan" required
-        class="w-full bg-blue-200 text-black px-4 py-3 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+        class="w-full bg-[#bbcde4] text-black px-4 py-3 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
       
         <option value="Akademik" >Akademik</option>
         <option value="Pribadi dan Sosial" >Pribadi dan Sosial</option>
@@ -24,7 +24,7 @@
     <div class="mb-6">
       <label class="block font-semibold mb-2">Pesan</label>
       <textarea rows="10" name="isi_pesan" placeholder="Tulis Pesan Anda di sini..."
-        class="w-full bg-blue-200 text-black px-4 py-3 rounded-2xl shadow focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+        class="w-full bg-[#bbcde4] text-black px-4 py-3 rounded-2xl shadow focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
     </div>
 
     <!-- Tombol Submit -->

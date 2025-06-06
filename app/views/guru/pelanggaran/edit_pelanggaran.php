@@ -18,7 +18,7 @@
         ?>
 
         <select id="jenis-pelanggaran" name="jenis_pelanggaran"
-          class="w-full px-4 py-1 bg-blue-200 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none cursor-pointer shadow-md">
+          class="w-full px-4 py-1 bg-[#bbcde4] border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none cursor-pointer shadow-md">
 
           <?php foreach ($jenis_pelanggaran as $p): ?>
             <option <?= $p['NamaPelanggaran'] === $selected ? 'selected' : '' ?>><?= $p['NamaPelanggaran'] ?></option>
@@ -41,7 +41,7 @@
       <textarea id="deskripsi" name="deskripsi"
         rows="4"
         placeholder="Tambahkan Deskripsi Pelanggan"
-        class="w-full px-4 py-3 bg-blue-200 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none placeholder-gray-500 shadow-md"><?= $data['pelanggaran']['Deskripsi'] ?? ""; ?></textarea>
+        class="w-full px-4 py-3 bg-[#bbcde4] border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none placeholder-gray-500 shadow-md"><?= $data['pelanggaran']['Deskripsi'] ?? ""; ?></textarea>
     </div>
 
     <!-- Update Button -->
