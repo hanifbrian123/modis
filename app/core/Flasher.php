@@ -26,4 +26,19 @@ class Flasher
       unset($_SESSION['flash']);
     }
   }
+
+  public static function loginError()
+  {
+    if (isset($_SESSION['flash'])) {
+      echo "<script>
+        Swal.fire({
+        icon: '{$_SESSION['flash']['type']}',
+        title: 'Gagal Login!',
+        text: '{$_SESSION['flash']['message']}',
+        confirmButtonText: 'Coba Lagi'
+        });
+      </script>";
+      unset($_SESSION['flash']);
+    }
+  }
 }
