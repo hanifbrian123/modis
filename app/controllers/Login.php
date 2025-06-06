@@ -3,6 +3,7 @@ class Login extends Controller
 {
   public function index()
   {
+    requireRole('');
     $this->view('login/index');
   }
 
@@ -37,7 +38,10 @@ class Login extends Controller
           break;
       }
     } else {
-      echo "<script>alert('ID atau Password salah');window.location.href='/login';</script>";
+      $_SESSION['IDPengenal'] = $id;
+      Flasher::setFlash('NIS/NIP atau Password salah', 'error');
+      header('Location: ' . BASEURL . '/');
+      exit;
     }
   }
 }
