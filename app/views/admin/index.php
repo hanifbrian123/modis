@@ -2,7 +2,7 @@
 
 <main class=" m-6 p-8 flex-1 bg-[#ffffff] rounded-3xl shadow-lg/25">
     <div>
-        <h1 class="text-2xl font-bold">Daftar Akun</h1>
+        <h1 class="text-2xl font-bold mb-4">Daftar Akun</h1>
         <!-- Search and Filter -->
         <div class="flex flex-col md:flex-row gap-4 mb-6">
             <div class="flex-1">
@@ -21,24 +21,24 @@
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table class="w-full border-collapse border border-gray-200">
+            <table class="w-full table-auto min-w-[600px]">
                 <thead>
-                    <tr class="bg-gray-50">
-                        <th class="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">NO</th>
-                        <th class="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">NAMA</th>
-                        <th class="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">NIS / NIP
+                    <tr class="text-left border-y">
+                        <th class="p-2">NO</th>
+                        <th class="p-2">NAMA</th>
+                        <th class="p-2">NIS / NIP
                         </th>
-                        <th class="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-700">ROLE</th>
+                        <th class="p-2">ROLE</th>
                     </tr>
                 </thead>
                 <tbody id="accountTableBody">
                     <?php $i = 1; ?>
                     <?php foreach ($data['all_user'] as $user): ?>
-                        <tr class="hover:bg-gray-50">
-                            <td class="border border-gray-200 px-4 py-3"><?php echo $i ?></td>
-                            <td class="border border-gray-200 px-4 py-3"><?php echo $user['Nama_Lengkap'] ?></td>
-                            <td class="border border-gray-200 px-4 py-3"><?php echo $user['ID_Spesifik'] ?></td>
-                            <td class="border border-gray-200 px-4 py-3">
+                        <tr class="hover:bg-gray-50 border-y">
+                            <td class="p-2"><?php echo $i ?></td>
+                            <td class="p-2"><?php echo $user['Nama_Lengkap'] ?></td>
+                            <td class="p-2"><?php echo $user['ID_Spesifik'] ?></td>
+                            <td class="p-2">
                                 <span class="<?php classStatusUser($user['Role']) ?>"><?php echo $user['Role'] ?></span>
                             </td>
                         </tr>
