@@ -16,11 +16,7 @@ class Siswa extends Controller
   public function lapor_bk()
   {
     requireRole('User');
-    if (!isset($_SESSION)) session_start();
-    $_SESSION['user'] = [
-      'nis' => '001',
-      'nama' => 'Andi'
-    ];
+    
     $data['siswa'] = $this->model('Siswa_model')->getNisNamaSiswa();
     $data['pelanggaran'] = $this->model('Pelanggaran')->getJenis();
     $data['title'] = 'Lapor BK';
