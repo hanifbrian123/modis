@@ -16,5 +16,11 @@ class Siswa
     $this->db->bind(":nis", $nis);
     return $this->db->single();
   }
+  
+  public function getNisNamaSiswa()
+  {
+      $this->db->query("SELECT nis, nama FROM siswa");
+      return $this->db->resultSet();
+  }
 
 }

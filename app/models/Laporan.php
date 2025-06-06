@@ -1,5 +1,5 @@
 <?php 
-class LaporanModel
+class Laporan
 {
     private $db;
     public function __construct()

@@ -32,7 +32,7 @@ class Guru extends Controller
   {
     requireRole('BK');
     $data['title'] = 'Pelanggaran';
-    $data['siswa'] = $this->model('PelanggaranModel')->getAkumulasiPelanggaran();
+    $data['siswa'] = $this->model('Pelanggaran')->getAkumulasiPelanggaran();
 
     $this->view('templates/header_guru', $data);
     $this->view('guru/pelanggaran/index', $data);
@@ -43,8 +43,8 @@ class Guru extends Controller
   {
     requireRole('BK');
     $data['title'] = 'Pelanggaran';
-    $data['siswa'] = $this->model('SiswaModel')->getNisNamaSiswa(); // list siswa
-    $data['pelanggaran'] = $this->model('PelanggaranModel')->getJenis(); // list pelanggaran
+    $data['siswa'] = $this->model('Siswa')->getNisNamaSiswa(); // list siswa
+    $data['pelanggaran'] = $this->model('Pelanggaran')->getJenis(); // list pelanggaran
     $this->view('templates/header_guru', $data);
     $this->view('guru/pelanggaran/tambah_pelanggaran', $data);
     $this->view('templates/footer');
@@ -104,7 +104,7 @@ class Guru extends Controller
   {
     requireRole('BK');
     $data['title'] = 'Pemanggilan';
-    $data['pemanggilan'] = $this->model('PelanggaranModel')->getDaftarPemanggilan();
+    $data['pemanggilan'] = $this->model('Pelanggaran')->getDaftarPemanggilan();
     $this->view('templates/header_guru', $data);
     $this->view('guru/pemanggilan/index', $data);
     $this->view('templates/footer');
@@ -185,7 +185,7 @@ class Guru extends Controller
         die('error saat upload!');
       }
 
-      $this->model('PelanggaranModel')->insert([
+      $this->model('Pelanggaran')->insert([
         'nis' => $nis,
         'pelanggaran' => $pelanggaranID,
         'deskripsi' => $deskripsi,

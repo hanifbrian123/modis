@@ -21,8 +21,8 @@ class Siswa extends Controller
       'nis' => '001',
       'nama' => 'Andi'
     ];
-    $data['siswa'] = $this->model('SiswaModel')->getNisNamaSiswa();
-    $data['pelanggaran'] = $this->model('PelanggaranModel')->getJenis();
+    $data['siswa'] = $this->model('Siswa')->getNisNamaSiswa();
+    $data['pelanggaran'] = $this->model('Pelanggaran')->getJenis();
     $data['title'] = 'Lapor BK';
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/lapor_bk/index', $data);
@@ -34,7 +34,7 @@ class Siswa extends Controller
   {
     requireRole('User');
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      if ($this->model('LaporanModel')->simpan($_POST, $_FILES) > 0) {
+      if ($this->model('Laporan')->simpan($_POST, $_FILES) > 0) {
         header('Location: ' . BASEURL . '/siswa/home');
         exit;
       } else {
@@ -95,7 +95,7 @@ class Siswa extends Controller
   public function pelanggaran()
   {
     requireRole('User');
-    $data['pelanggaran'] = $this->model('PelanggaranModel')->getByNIS($_SESSION['IDPengenal']);
+    $data['pelanggaran'] = $this->model('Pelanggaran')->getByNIS($_SESSION['IDPengenal']);
     $data['title'] = 'Pelanggaran';
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/pelanggaran/index', $data);
