@@ -43,7 +43,7 @@ class Guru extends Controller
   {
     requireRole('BK');
     $data['title'] = 'Pelanggaran';
-    $data['siswa'] = $this->model('Siswa')->getNisNamaSiswa(); // list siswa
+    $data['siswa'] = $this->model('Siswa_model')->getNisNamaSiswa(); // list siswa
     $data['pelanggaran'] = $this->model('Pelanggaran')->getJenis(); // list pelanggaran
     $this->view('templates/header_guru', $data);
     $this->view('guru/pelanggaran/tambah_pelanggaran', $data);
@@ -55,7 +55,7 @@ class Guru extends Controller
   {
     requireRole('BK');
     $data['title'] = 'Pelanggaran';
-    $data['siswa'] = $this->model('Siswa')->getSiswaByNIS($nis);
+    $data['siswa'] = $this->model('Siswa_model')->getSiswaByNIS($nis);
     $data['daftar_pelanggaran'] = $this->model('Detail_pelanggaran')->getAllPelanggaranByNIS($nis);
     $this->view('templates/header_guru', $data);
     $this->view('guru/pelanggaran/daftar_pelanggaran', $data);

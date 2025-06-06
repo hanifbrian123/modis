@@ -21,7 +21,7 @@ class Siswa extends Controller
       'nis' => '001',
       'nama' => 'Andi'
     ];
-    $data['siswa'] = $this->model('Siswa')->getNisNamaSiswa();
+    $data['siswa'] = $this->model('Siswa_model')->getNisNamaSiswa();
     $data['pelanggaran'] = $this->model('Pelanggaran')->getJenis();
     $data['title'] = 'Lapor BK';
     $this->view('templates/header_siswa', $data);
