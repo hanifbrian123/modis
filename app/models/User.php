@@ -113,7 +113,7 @@ class User
   {
     $this->db->query(
       "INSERT INTO `user` (IDPengenal, Role, Password) 
-       VALUES (:IDPengenal, 'User', :Password);
+       VALUES (:IDPengenal, 'Siswa', :Password);
 
        INSERT INTO `siswa` (NIS, Nama, Kelas, Angkatan, NamaOrtu, NoTelOrtu)
        VALUES (:IDPengenal, :Nama, :Kelas, :Angkatan, :NamaOrtu, :NoTelOrtu)"
