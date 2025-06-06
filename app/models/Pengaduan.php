@@ -61,8 +61,30 @@ class Pengaduan
 
     public function terimaLaporan($id)
     {
+        // 1. Ambil data laporan
+        $this->db->query("SELECT * FROM pengaduan WHERE ID = :id");
+        $this->db->bind(':id', $id);
+        $laporan = $this->db->single();
+
+        if (!$laporan) return false;
+
+        // 2. Ubah status
         $this->db->query("UPDATE pengaduan SET status = 'Accepted' WHERE ID = :id");
         $this->db->bind(':id', $id);
-        return $this->db->execute();
+        $this->db->execute();
+
+        // 3. Masukkan ke DetailPelanggaran
+        $this->db->query("
+            INSERT INTO DetailPelanggaran (NIS, PelanggaranID, Deskripsi, Tgl, bukti)
+            VALUES (:nis, :pelanggaran, :deskripsi, CURRENT_DATE, :bukti)
+        ");
+        $this->db->bind('nis', $laporan['NIS']);
+        $this->db->bind('pelanggaran', $laporan['PelanggaranID']);
+        $this->db->bind('deskripsi', $laporan['Deskripsi']);
+        $this->db->bind('bukti', $laporan['bukti'] ?? '');
+        $this->db->execute();
+
+        return true;
     }
+
 }
