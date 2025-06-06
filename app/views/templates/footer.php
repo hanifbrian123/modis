@@ -18,6 +18,16 @@
     // Hide menu by default
     mobileMenu.classList.add("hidden");
   });
+
+  const menuLogout = document.getElementById('menu-logout');
+  const buttonProfile = document.getElementById('button-profile')
+  buttonProfile.addEventListener('click', (e) => {
+    menuLogout.classList.toggle('hidden');
+    buttonProfile.classList.toggle('ring-2');
+    buttonProfile.classList.toggle('ring-white');
+    buttonProfile.classList.toggle('ring-offset-gray-800');
+    buttonProfile.classList.toggle('ring-offset-2');
+  })
 </script>
 
 

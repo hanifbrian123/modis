@@ -3,7 +3,7 @@ class Login extends Controller
 {
   public function index()
   {
-    requireRole('');
+    if (isLoggedIn()) routingRole();
     $this->view('login/index');
   }
 
@@ -34,7 +34,7 @@ class Login extends Controller
           header('Location: ' . BASEURL . '/siswa');
           break;
         default:
-          logout();
+          header('Location: ' . BASEURL . '/login/logout');
           break;
       }
     } else {
@@ -43,5 +43,16 @@ class Login extends Controller
       header('Location: ' . BASEURL . '/');
       exit;
     }
+  }
+
+  public function logout(): void
+  {
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+    session_unset();
+    session_destroy();
+    header('Location: ' . BASEURL);
+    exit;
   }
 }
