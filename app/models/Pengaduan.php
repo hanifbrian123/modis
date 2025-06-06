@@ -48,7 +48,6 @@ class Pengaduan
             
             WHERE p.Status = 'Pending'
             ");
-        die(print_r($this->db->resultSet()));
         return $this->db->resultSet();
     }
 
@@ -78,11 +77,11 @@ class Pengaduan
             INSERT INTO DetailPelanggaran (NIS, PelanggaranID, Deskripsi, Tgl, bukti)
             VALUES (:nis, :pelanggaran, :deskripsi, CURRENT_DATE, :bukti)
         ");
-        $this->db->bind('nis', $laporan['NIS']);
-        $this->db->bind('pelanggaran', $laporan['PelanggaranID']);
+        $this->db->bind('nis', $laporan['NIS_Terlapor']);
+        $this->db->bind('pelanggaran', $laporan['IDPelanggaran']);
         $this->db->bind('deskripsi', $laporan['Deskripsi']);
         $this->db->bind('bukti', $laporan['bukti'] ?? '');
-        $this->db->execute();
+        $this->db->execute();   
 
         return true;
     }
