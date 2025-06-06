@@ -1,9 +1,12 @@
 <?php 
 class PelanggaranModel{
     private $db;
+    // private $pemanggilanModel;
+
     public function __construct()
     {
         $this->db = new Database;
+        // $this->pemanggilanModel = new Pemanggilan;
     }
     public function getJenis()
     {
@@ -48,37 +51,9 @@ class PelanggaranModel{
         $this->db->bind('bukti', $data['bukti']);
         $this->db->execute();
 
-        // Mengupdate Pemanggilan - Hitung bobot pelanggaran siswa yang belum punya PemanggilanID
-        $this->db->query("
-            SELECT SUM(p.Bobot) as total
-            FROM DetailPelanggaran dp
-            JOIN Pelanggaran p ON dp.PelanggaranID = p.ID
-            WHERE dp.NIS = :nis AND dp.PemanggilanID IS NULL
-        ");
-        $this->db->bind('nis', $data['nis']);
-        $bobot = $this->db->single()['total'];
+        // Otomatis periksa dan atur pemanggilan
+        // $this->pemanggilanModel->periksaDanAturPemanggilan($data['nis']);
 
-        // Jika >= 3, insert pemanggilan dan update baris terkait
-        if ($bobot >= 3) {
-            // a. Tambahkan pemanggilan
-            $this->db->query("INSERT INTO Pemanggilan (Tanggal, Status_Pemanggilan)
-                            VALUES (CURRENT_DATE, 'BelumTerkirim')");
-            $this->db->execute();
-            $pemanggilanID = $this->db->lastInsertId();
-
-            // b. Update semua pelanggaran siswa yang belum ada PemanggilanID
-            $this->db->query("
-                UPDATE DetailPelanggaran 
-                SET PemanggilanID = :pid
-                WHERE NIS = :nis AND PemanggilanID IS NULL
-            ");
-            $this->db->bind('pid', $pemanggilanID);
-            $this->db->bind('nis', $data['nis']);
-            $this->db->execute();
-        }
-
-
-        
         return ($this->db->rowCount());
     }
 

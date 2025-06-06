@@ -38,7 +38,7 @@
               file:rounded-full file:border-0
               file:text-sm file:font-semibold
               file:bg-[#bbcde4] file:text-black
-              hover:file:bg-blue-300 transition"/>
+              hover:file:bg-blue-300 transition" required/>
     </div>
 
     <!-- Deskripsi -->

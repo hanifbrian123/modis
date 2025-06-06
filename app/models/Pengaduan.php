@@ -48,6 +48,7 @@ class Pengaduan
             
             WHERE p.Status = 'Pending'
             ");
+        die(print_r($this->db->resultSet()));
         return $this->db->resultSet();
     }
 

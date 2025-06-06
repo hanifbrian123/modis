@@ -191,6 +191,7 @@ class Guru extends Controller
         'deskripsi' => $deskripsi,
         'bukti' => $bukti,
       ]);
+
       header('Location: ' . BASEURL . '/guru/pelanggaran'); // kembali ke daftar
       exit;
     }

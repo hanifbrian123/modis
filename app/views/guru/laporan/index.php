@@ -15,7 +15,7 @@
                         <a href="<?= BASEURL ?>/guru/tolak_laporan/<?= $satu_laporan['ID'] ?>">
                             <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded">Tolak</button>
                         </a>
-                        <a href="<?= BASEURL ?>/guru/terima_laporan/<?= $satu_laporan['ID'] ?>"">
+                        <a href="<?= BASEURL ?>/guru/terima_laporan/<?= $satu_laporan['ID'] ?>">
                             <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Terima</button>
                         </a>
                     </div>
