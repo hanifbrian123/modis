@@ -2,9 +2,9 @@
 class Detail_pelanggaran
 {
   private $db;
-
   public function __construct()
   {
+    
     $this->db = new Database;
   }
 
@@ -48,6 +48,7 @@ class Detail_pelanggaran
     );
     $this->db->bind(":id", $id);
     $this->db->execute();
+
     return $this->db->rowCount();
   }
 

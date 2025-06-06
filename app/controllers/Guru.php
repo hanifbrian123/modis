@@ -68,6 +68,10 @@ class Guru extends Controller
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($this->model('Detail_pelanggaran')->editPelanggaranById($_POST) > 0) {
         Flasher::setFlash('Pelanggaran berhasil diperbarui', 'success');
+        
+        // Cek data pemanggilan dan update otomatis
+        $this->model('Pemanggilan')->periksaDanAturPemanggilan($nis);
+
         header('Location: ' . BASEURL . '/guru/daftar_pelanggaran/' . $nis);
         exit;
       } else {
@@ -90,6 +94,10 @@ class Guru extends Controller
     requireRole('BK');
     if ($this->model('Detail_pelanggaran')->deletePelanggaranById($id) > 0) {
       Flasher::setFlash('Pelanggaran berhasil dihapus', 'success');
+      
+      // Cek data pemanggilan dan update otomatis
+      $this->model('Pemanggilan')->periksaDanAturPemanggilan($nis);
+
       header('Location: ' . BASEURL . '/guru/daftar_pelanggaran/' . $nis);
       exit;
     } else {
@@ -191,10 +199,16 @@ class Guru extends Controller
         'deskripsi' => $deskripsi,
         'bukti' => $bukti,
       ]);
+      
+      // Cek data pemanggilan dan update otomatis
+      $this->model('Pemanggilan')->periksaDanAturPemanggilan($nis);
+      
       header('Location: ' . BASEURL . '/guru/pelanggaran'); // kembali ke daftar
       exit;
     }
   }
+
+
 
   public function kirim_pemanggilan()
   {

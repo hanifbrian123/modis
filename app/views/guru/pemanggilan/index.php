@@ -16,10 +16,9 @@
             </tr>
           </thead>
           <tbody>
-            <?php
-            foreach ($data['pemanggilan'] as $no => $p): ?>
+            <?php $no=1; foreach ($data['pemanggilan'] as $p): ?>
               <tr class="hover:bg-gray-50 border-y">
-                <td class="p-2"><?= $no + 1 ?></td>
+                <td class="p-2"><?= $no++ ?></td>
                 <td class="p-2"><?= $p['NamaSiswa'] ?></td>
                 <td class="p-2"><?= $p['NamaOrtu'] ?></td>
                 <td class="p-2"><?= $p['NoTelOrtu'] ?></td>
