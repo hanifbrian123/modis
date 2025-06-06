@@ -3,6 +3,7 @@ class Login extends Controller
 {
   public function index()
   {
+    if (isLoggedIn()) routingRole();
     $this->view('login/index');
   }
 
@@ -33,11 +34,25 @@ class Login extends Controller
           header('Location: ' . BASEURL . '/siswa');
           break;
         default:
-          logout();
+          header('Location: ' . BASEURL . '/login/logout');
           break;
       }
     } else {
-      echo "<script>alert('ID atau Password salah');window.location.href='/login';</script>";
+      $_SESSION['IDPengenal'] = $id;
+      Flasher::setFlash('NIS/NIP atau Password salah', 'error');
+      header('Location: ' . BASEURL . '/');
+      exit;
     }
+  }
+
+  public function logout(): void
+  {
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+    session_unset();
+    session_destroy();
+    header('Location: ' . BASEURL);
+    exit;
   }
 }

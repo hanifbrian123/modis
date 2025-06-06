@@ -1,5 +1,5 @@
 <?php
-class Siswa
+class Siswa_model
 {
   private $db;
 
@@ -17,4 +17,9 @@ class Siswa
     return $this->db->single();
   }
 
+  public function getNisNamaSiswa()
+  {
+    $this->db->query("SELECT nis, nama FROM siswa");
+    return $this->db->resultSet();
+  }
 }

@@ -16,7 +16,7 @@
             </tr>
           </thead>
           <tbody>
-            <?php $no = 1; foreach ($data['pemanggilan'] as $p): ?>
+            <?php $no=1; foreach ($data['pemanggilan'] as $p): ?>
               <tr class="hover:bg-gray-50 border-y">
                 <td class="p-2"><?= $no++ ?></td>
                 <td class="p-2"><?= $p['NamaSiswa'] ?></td>

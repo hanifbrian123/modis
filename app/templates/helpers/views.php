@@ -24,3 +24,8 @@ function selectPelanggaran($nama, $namaInDB)
 {
     if ($nama == $namaInDB) return "selected";
 }
+
+function old_id_login()
+{
+    return isset($_SESSION['IDPengenal']) ? htmlspecialchars($_SESSION['IDPengenal']) : '';
+}

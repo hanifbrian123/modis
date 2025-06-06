@@ -47,8 +47,32 @@ class Pengaduan
             JOIN pelanggaran pel ON pel.ID = p.IDPelanggaran
             
             WHERE p.Status = 'Pending'
-            ");
+            "
+        );
         return $this->db->resultSet();
+    }
+
+    public function getLaporanById($id)
+    {
+        $this->db->query(
+            "SELECT 
+                p.ID AS ID,
+                s.NIS AS NIS_Terlapor,
+                s.Nama AS Nama_Terlapor,
+                sp.Nama AS Nama_Pelapor,
+                p.Deskripsi,
+                p.bukti,
+                pel.NamaPelanggaran AS Jenis_Pelanggaran,
+                pel.ID AS PelanggaranID
+            FROM pengaduan p 
+            JOIN siswa s ON s.NIS = p.NIS_Terlapor
+            JOIN siswa sp ON sp.NIS = p.NIS_Pelapor
+            JOIN pelanggaran pel ON pel.ID = p.IDPelanggaran
+            WHERE p.ID = :id
+        "
+        );
+        $this->db->bind(':id', $id);
+        return $this->db->single();
     }
 
     public function tolakLaporan($id)
