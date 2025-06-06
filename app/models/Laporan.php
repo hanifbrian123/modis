@@ -9,11 +9,6 @@ class Laporan
 
     public function simpan($data,$file)
     {
-        if (!isset($_SESSION)) session_start();
-        $_SESSION['user'] = [
-            'nis' => '001',
-            'nama' => 'Andi'
-        ];
         $namaFile = null;
 
         // Handle Upload Gambar
@@ -33,7 +28,7 @@ class Laporan
         $this->db->query("INSERT INTO pengaduan (nis_pelapor, nis_terlapor, idpelanggaran, deskripsi, bukti, status) 
         VALUES (:pelapor, :terlapor, :idpelanggaran, :deskripsi, :bukti, 'Pending')");
 
-        $this->db->bind(':pelapor', $_SESSION['user']['nis']);
+        $this->db->bind(':pelapor', $_SESSION['IDPengenal']);
         $this->db->bind(':terlapor', $data['nis_terlapor']);
         $this->db->bind(':idpelanggaran', $data['jenis']);
         $this->db->bind(':deskripsi', $data['deskripsi']);
