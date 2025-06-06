@@ -3,9 +3,9 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-function isLoggedIn(): bool
+function isLoggedIn(): ?bool
 {
-  return isset($_SESSION['login']) && $_SESSION['login'] === true;
+  return (isset($_SESSION['login']) && $_SESSION['login'] === true);
 }
 
 function currentUserRole(): ?string
@@ -24,32 +24,25 @@ function requireRole(string $role): void
     header('Location: ' . BASEURL);
     exit;
   }
-
   if (currentUserRole() !== $role) {
-    switch (currentUserRole()) {
-      case 'Admin':
-        header('Location: ' . BASEURL . '/admin');
-        break;
-      case 'BK':
-        header('Location: ' . BASEURL . '/guru');
-        break;
-      case 'User':
-        header('Location: ' . BASEURL . '/siswa');
-        break;
-      default:
-        logout();
-    }
+    routingRole();
     exit;
   }
 }
 
-function logout(): void
+function routingRole()
 {
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  switch (currentUserRole()) {
+    case 'Admin':
+      header('Location: ' . BASEURL . '/admin');
+      break;
+    case 'BK':
+      header('Location: ' . BASEURL . '/guru');
+      break;
+    case 'User':
+      header('Location: ' . BASEURL . '/siswa');
+      break;
+    default:
+      header('Location: ' . BASEURL . '/');
   }
-  session_unset();
-  session_destroy();
-  header('Location: ' . BASEURL);
-  exit;
 }
