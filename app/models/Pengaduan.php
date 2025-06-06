@@ -47,8 +47,32 @@ class Pengaduan
             JOIN pelanggaran pel ON pel.ID = p.IDPelanggaran
             
             WHERE p.Status = 'Pending'
-            ");
+            "
+        );
         return $this->db->resultSet();
+    }
+
+    public function getLaporanById($id)
+    {
+        $this->db->query(
+            "SELECT 
+                p.ID AS ID,
+                s.NIS AS NIS_Terlapor,
+                s.Nama AS Nama_Terlapor,
+                sp.Nama AS Nama_Pelapor,
+                p.Deskripsi,
+                p.bukti,
+                pel.NamaPelanggaran AS Jenis_Pelanggaran,
+                pel.ID AS PelanggaranID
+            FROM pengaduan p 
+            JOIN siswa s ON s.NIS = p.NIS_Terlapor
+            JOIN siswa sp ON sp.NIS = p.NIS_Pelapor
+            JOIN pelanggaran pel ON pel.ID = p.IDPelanggaran
+            WHERE p.ID = :id
+        "
+        );
+        $this->db->bind(':id', $id);
+        return $this->db->single();
     }
 
     public function tolakLaporan($id)
@@ -62,6 +86,17 @@ class Pengaduan
     {
         $this->db->query("UPDATE pengaduan SET status = 'Accepted' WHERE ID = :id");
         $this->db->bind(':id', $id);
-        return $this->db->execute();
+        $this->db->execute();
+
+        $laporan = $this->getLaporanById($id);
+        $this->db->query(
+            "INSERT INTO `detailpelanggaran`
+            (`Deskripsi`, `NIS`, `PelanggaranID`, `PemanggilanID`, `bukti`) VALUES (:deskripsi, :nis, :pelanggaranID, NULL, :bukti) "
+        );
+        $this->db->bind(':deskripsi', $laporan['Deskripsi']);
+        $this->db->bind(':nis', $laporan['NIS_Terlapor']);
+        $this->db->bind(':pelanggaranID', $laporan['PelanggaranID']);
+        $this->db->bind(':bukti', $laporan['bukti']);
+        $this->db->execute();
     }
 }

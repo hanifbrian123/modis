@@ -16,9 +16,10 @@
             </tr>
           </thead>
           <tbody>
-            <?php $no = 1; foreach ($data['pemanggilan'] as $p): ?>
+            <?php
+            foreach ($data['pemanggilan'] as $no => $p): ?>
               <tr class="hover:bg-gray-50 border-y">
-                <td class="p-2"><?= $p['PemanggilanID'] ?></td>
+                <td class="p-2"><?= $no + 1 ?></td>
                 <td class="p-2"><?= $p['NamaSiswa'] ?></td>
                 <td class="p-2"><?= $p['NamaOrtu'] ?></td>
                 <td class="p-2"><?= $p['NoTelOrtu'] ?></td>
@@ -28,7 +29,7 @@
                   <?php else: ?>
                     <a href="<?= BASEURL ?>/guru/detail_pemanggilan/<?= $p['PemanggilanID'] ?>"
                       class="inline-block bg-yellow-400 text-white px-5 py-1 rounded text-sm font-semibold hover:bg-yellow-500 transition">
-                      Kirim Pesan <?= $p['PemanggilanID'] ?>
+                      Kirim Pesan
                     </a>
                   <?php endif; ?>
                 </td>
