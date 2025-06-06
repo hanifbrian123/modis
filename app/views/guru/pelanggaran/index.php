@@ -6,7 +6,7 @@
 
     <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-1 md:gap-2 w-full md:w-auto">
       <div class="relative w-full sm:w-64">
-        <input type="text" placeholder="Cari Siswa..."
+        <input id="pencarianSiswa" type="text" placeholder="Cari Siswa..."
           class="w-full pl-10 pr-2 py-2 border-2 border-gray-950 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
         <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
           <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.6071 0C16.4653 0 21.2143 4.74898 21.2143 10.6071C21.2143 13.1891 20.2918 15.5556 18.7584 17.395L26.7176 25.3539C27.0941 25.7304 27.0941 26.341 26.7176 26.7176C26.3828 27.0523 25.8632 27.0895 25.4874 26.8291L25.3539 26.7176L17.395 18.7584C15.5556 20.2918 13.1891 21.2143 10.6071 21.2143C4.74898 21.2143 0 16.4653 0 10.6071C0 4.74898 4.74898 0 10.6071 0ZM10.6071 1.92857C5.8141 1.92857 1.92857 5.8141 1.92857 10.6071C1.92857 15.4002 5.8141 19.2857 10.6071 19.2857C15.4002 19.2857 19.2857 15.4002 19.2857 10.6071C19.2857 5.8141 15.4002 1.92857 10.6071 1.92857Z" fill="black" fill-opacity="0.4"/></svg>
@@ -31,7 +31,7 @@
           <th class="p-2">Aksi</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tabelSiswa">
         <?php $no = 1; foreach ($data['siswa'] as $s): ?>
         <tr class="hover:bg-gray-50 border-y">
           <td class="p-2"><?= $no++; ?></td>
@@ -49,4 +49,24 @@
       </tbody>
     </table>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const inputPencarian = document.getElementById('pencarianSiswa');
+      const tabelSiswa = document.getElementById('tabelSiswa');
+
+      inputPencarian.addEventListener('input', function () {
+        const searchTerm = inputPencarian.value.toLowerCase();
+
+        Array.from(tabelSiswa.rows).forEach(row => {
+          const nama = row.cells[1].textContent.toLowerCase();
+          const nis = row.cells[2].textContent.toLowerCase();
+
+          const cocok = nama.includes(searchTerm) || nis.includes(searchTerm);
+
+          row.style.display = cocok ? '' : 'none';
+        });
+      });
+    });
+  </script>
+
 </main>
