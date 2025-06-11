@@ -39,7 +39,7 @@ function routingRole()
     case 'BK':
       header('Location: ' . BASEURL . '/guru');
       break;
-    case 'User':
+    case 'Siswa':
       header('Location: ' . BASEURL . '/siswa');
       break;
     default:

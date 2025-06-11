@@ -50,8 +50,7 @@ class Guru extends Controller
     $this->view('templates/footer');
   }
 
-  // MASIH MENGGUNAKAN STATIC NIS (siswa001)
-  public function daftar_pelanggaran($nis = "siswa001")
+  public function daftar_pelanggaran($nis = null)
   {
     requireRole('BK');
     $data['title'] = 'Pelanggaran';
@@ -68,7 +67,7 @@ class Guru extends Controller
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($this->model('Detail_pelanggaran')->editPelanggaranById($_POST) > 0) {
         Flasher::setFlash('Pelanggaran berhasil diperbarui', 'success');
-        
+
         // Cek data pemanggilan dan update otomatis
         $this->model('Pemanggilan')->periksaDanAturPemanggilan($nis);
 
@@ -94,7 +93,7 @@ class Guru extends Controller
     requireRole('BK');
     if ($this->model('Detail_pelanggaran')->deletePelanggaranById($id) > 0) {
       Flasher::setFlash('Pelanggaran berhasil dihapus', 'success');
-      
+
       // Cek data pemanggilan dan update otomatis
       $this->model('Pemanggilan')->periksaDanAturPemanggilan($nis);
 
@@ -199,10 +198,10 @@ class Guru extends Controller
         'deskripsi' => $deskripsi,
         'bukti' => $bukti,
       ]);
-      
+
       // Cek data pemanggilan dan update otomatis
       $this->model('Pemanggilan')->periksaDanAturPemanggilan($nis);
-      
+
       header('Location: ' . BASEURL . '/guru/pelanggaran'); // kembali ke daftar
       exit;
     }

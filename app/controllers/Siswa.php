@@ -4,7 +4,7 @@ class Siswa extends Controller
   // KONTROLER UNTUK MENU HOME
   public function index()
   {
-    requireRole('User');
+    requireRole('Siswa');
     $data['title'] = 'Home';
     $data['daftar_pengaduan'] = $this->model('Pengaduan')->getDaftarLaporanByNIS($_SESSION['IDPengenal']);
     $this->view('templates/header_siswa', $data);
@@ -15,8 +15,8 @@ class Siswa extends Controller
   // KONTROLER UNTUK MENU LAPOR BK
   public function lapor_bk()
   {
-    requireRole('User');
-    
+    requireRole('Siswa');
+
     $data['siswa'] = $this->model('Siswa_model')->getNisNamaSiswa();
     $data['pelanggaran'] = $this->model('Pelanggaran')->getJenis();
     $data['title'] = 'Lapor BK';
@@ -28,7 +28,7 @@ class Siswa extends Controller
   // SIMPAN LAPORAN
   public function simpan_laporan()
   {
-    requireRole('User');
+    requireRole('Siswa');
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if ($this->model('Laporan')->simpan($_POST, $_FILES) > 0) {
         header('Location: ' . BASEURL . '/siswa/home');
@@ -42,7 +42,7 @@ class Siswa extends Controller
   // KONTROLER UNTUK MENU KONSULTASI
   public function konsultasi()
   {
-    requireRole('User');
+    requireRole('Siswa');
     $data['title'] = 'Konsultasi';
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/konsultasi/index', $data);
@@ -51,7 +51,7 @@ class Siswa extends Controller
 
   public function kirim_pesan()
   {
-    requireRole('User');
+    requireRole('Siswa');
     $data['title'] = 'Konsultasi';
     $this->view('templates/header_siswa', $data);
     $this->view('siswa/konsultasi/kirim_pesan', $data);
@@ -60,7 +60,7 @@ class Siswa extends Controller
 
   public function kirimPesan()
   {
-    requireRole('User');
+    requireRole('Siswa');
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $this->model('Pesan_konsultasi')->kirimPesan($_POST);
       header('Location: ' . BASEURL . '/siswa/konsultasi');
@@ -70,7 +70,7 @@ class Siswa extends Controller
 
   public function lihat_pesan()
   {
-    requireRole('User');
+    requireRole('Siswa');
     $data['title'] = 'Konsultasi';
     $data['pesan_pribadi'] = $this->model('Pesan_konsultasi')->getPesanByNIS($_SESSION['IDPengenal']);
     $this->view('templates/header_siswa', $data);
@@ -80,7 +80,7 @@ class Siswa extends Controller
 
   public function edit_pelanggaran()
   {
-    requireRole('User');
+    requireRole('Siswa');
     $data['title'] = 'Pelanggaran';
     $this->view('templates/header_guru', $data);
     $this->view('guru/pelanggaran/edit_pelanggaran', $data);
@@ -90,7 +90,7 @@ class Siswa extends Controller
   // KONTROLER UNTUK MENU PELANGGARAN
   public function pelanggaran()
   {
-    requireRole('User');
+    requireRole('Siswa');
     $data['pelanggaran'] = $this->model('Pelanggaran')->getByNIS($_SESSION['IDPengenal']);
     $data['title'] = 'Pelanggaran';
     $this->view('templates/header_siswa', $data);
