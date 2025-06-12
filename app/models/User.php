@@ -90,7 +90,8 @@ class User
     $this->db->query("SELECT 
           s.Nama AS Nama_Lengkap,
           'Siswa' AS Role,
-          s.NIS AS ID_Spesifik
+          s.NIS AS ID_Spesifik,
+          u.Password AS Password
       FROM user u 
         LEFT JOIN siswa s 
           ON u.IDPengenal = s.NIS
@@ -101,7 +102,8 @@ class User
       SELECT 
           g.Nama AS Nama_Lengkap,
           'Guru' AS Role,
-          g.Nip AS ID_Spesifik
+          g.Nip AS ID_Spesifik,
+          u.Password AS Password
       FROM user u 
         LEFT JOIN guru_bk g 
           ON u.IDPengenal = g.NIP

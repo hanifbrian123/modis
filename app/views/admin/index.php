@@ -26,8 +26,9 @@
                     <tr class="text-left border-y">
                         <th class="p-2">NO</th>
                         <th class="p-2">NAMA</th>
-                        <th class="p-2">NIS / NIP
-                        </th>
+                        <th class="p-2">NIS / NIP</th>
+                        <th class="p-2">PASSWORD</th>
+                        <th class="p-2"></th>
                         <th class="p-2">ROLE</th>
                     </tr>
                 </thead>
@@ -38,6 +39,13 @@
                             <td class="p-2"><?php echo $i ?></td>
                             <td class="p-2"><?php echo $user['Nama_Lengkap'] ?></td>
                             <td class="p-2"><?php echo $user['ID_Spesifik'] ?></td>
+                            <td id="user<?php echo $i ?>Password" class="password-cell p-2"
+                                data-original-content="<?php echo $user['Password'] ?>">***********</td>
+                            <td>
+                                <span class="toggle-visibility" data-target="user<?php echo $i ?>Password">
+                                    <i class="fa-solid fa-eye"></i>
+                                </span>
+                            </td>
                             <td class="p-2">
                                 <span class="<?php classStatusUser($user['Role']) ?>"><?php echo $user['Role'] ?></span>
                             </td>
@@ -54,7 +62,39 @@
 </main>
 
 <script>
+
     document.addEventListener('DOMContentLoaded', function () {
+        // Toggle password visibility
+        const toggleButtons = document.querySelectorAll('.toggle-visibility');
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                // Dapatkan ID dari TD yang ingin di-toggle dari atribut data-target
+                const targetId = this.dataset.target;
+                const passwordCell = document.getElementById(targetId);
+
+                // Dapatkan ikon mata di dalam tombol yang sedang diklik
+                const eyeIcon = this.querySelector('i');
+
+                // Cek apakah password sedang ditampilkan (yaitu, kontennya sama dengan data-original-content)
+                const originalContent = passwordCell.dataset.originalContent;
+                const isVisible = passwordCell.textContent === originalContent;
+
+                if (isVisible) {
+                    // Jika sedang ditampilkan, sembunyikan dengan ******
+                    passwordCell.textContent = '***********';
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                } else {
+                    // Jika sedang disembunyikan, tampilkan konten asli
+                    passwordCell.textContent = originalContent;
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                }
+            });
+        });
+
+
         const pencarianInput = document.getElementById('pencarian');
         const roleFilter = document.getElementById('roleFilter');
         const accountTableBody = document.getElementById('accountTableBody');
