@@ -259,9 +259,9 @@ class Guru extends Controller
 
     // Redirect kembali ke halaman pemanggilan dengan pesan sukses/gagal
     if (isset($error_msg)) {
-      $_SESSION['flash'] = "Gagal mengirim WhatsApp: $error_msg";
+      Flasher::setFlash("Gagal mengirim WhatsApp: {$error_msg}", 'error');
     } else {
-      $_SESSION['flash'] = "Pesan WhatsApp berhasil dikirim!";
+      Flasher::setFlash("Pesan berhasil terkirim!", 'success');
     }
     header('Location: ' . BASEURL . '/guru/pemanggilan');
     exit;

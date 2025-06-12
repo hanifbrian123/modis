@@ -1,3 +1,5 @@
+<?= Flasher::flash(); ?>
+
 <main class="m-6 p-8 flex-1 bg-[#ffffff] rounded-3xl shadow-lg/25">
   <div>
     <h1 class="text-2xl font-bold">Daftar Pemanggilan</h1>
@@ -16,7 +18,8 @@
             </tr>
           </thead>
           <tbody>
-            <?php $no=1; foreach ($data['pemanggilan'] as $p): ?>
+            <?php $no = 1;
+            foreach ($data['pemanggilan'] as $p): ?>
               <tr class="hover:bg-gray-50 border-y">
                 <td class="p-2"><?= $no++ ?></td>
                 <td class="p-2"><?= $p['NamaSiswa'] ?></td>
