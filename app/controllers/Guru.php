@@ -218,10 +218,24 @@ class Guru extends Controller
     // Ambil data siswa dan ortu dari database
     $detail = $this->model('Pemanggilan')->getSiswaOrtuByNIS($nis);
 
-    // Buat pesan WhatsApp
-    $pesan = "Yth. " . $detail['NamaOrtu'] . ",\n"
-      . "Ananda " . $detail['Nama'] . " kelas " . $detail['Kelas'] . " telah melanggar tata tertib sekolah. "
-      . "Mohon kehadiran Bapak/Ibu ke sekolah untuk konsultasi lebih lanjut.";
+    // Ambil daftar pelanggaran siswa terkait pemanggilan
+    $pelanggaran = $this->model('Pemanggilan')->getPelanggaranByPemanggilan($pemanggilan_id);
+
+    // Susun daftar pelanggaran
+    $listPelanggaran = "";
+    $no = 1;
+    foreach ($pelanggaran as $p) {
+        $namaPelanggaran = isset($p['NamaPelanggaran']) ? $p['NamaPelanggaran'] : '-';
+        $tanggal = isset($p['Tgl']) ? date('Y - m - d', strtotime($p['Tgl'])) : '-';
+        $listPelanggaran .= "{$no}. {$namaPelanggaran}, pada {$tanggal}\n";
+        $no++;
+    }
+
+    // Buat pesan WhatsApp sesuai format permintaan
+    $pesan = "Yth. Bapak/ibu " . $detail['NamaOrtu'] . ",\n"
+        . "Ananda " . $detail['Nama'] . " kelas " . $detail['Kelas'] . " telah melanggar berbagai tata tertib sekolah sebagai berikut : \n"
+        . $listPelanggaran
+        . "\nMohon kehadiran Bapak/Ibu ke sekolah untuk melakukan konsultasi lebih lanjut. \n" . "\nHormat kami." . "\nGuru BK SMAN 1 Gresik.";
 
     // Kirim ke WhatsApp via Fonnte API
     $token = 'HLWHiQzENf1Snsb1B2Rr'; // Ganti dengan token asli Anda
@@ -230,27 +244,27 @@ class Guru extends Controller
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://api.fonnte.com/send',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'POST',
-      CURLOPT_POSTFIELDS => array(
-        'target' => $target,
-        'message' => $pesan,
-        'countryCode' => '62',
-      ),
-      CURLOPT_HTTPHEADER => array(
-        'Authorization: ' . $token
-      ),
+        CURLOPT_URL => 'https://api.fonnte.com/send',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => array(
+            'target' => $target,
+            'message' => $pesan,
+            'countryCode' => '62',
+        ),
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: ' . $token
+        ),
     ));
 
     $response = curl_exec($curl);
     if (curl_errno($curl)) {
-      $error_msg = curl_error($curl);
+        $error_msg = curl_error($curl);
     }
     curl_close($curl);
 
@@ -259,9 +273,9 @@ class Guru extends Controller
 
     // Redirect kembali ke halaman pemanggilan dengan pesan sukses/gagal
     if (isset($error_msg)) {
-      Flasher::setFlash("Gagal mengirim WhatsApp: {$error_msg}", 'error');
+        Flasher::setFlash("Gagal mengirim WhatsApp: {$error_msg}", 'error');
     } else {
-      Flasher::setFlash("Pesan berhasil terkirim!", 'success');
+        Flasher::setFlash("Pesan berhasil terkirim!", 'success');
     }
     header('Location: ' . BASEURL . '/guru/pemanggilan');
     exit;
