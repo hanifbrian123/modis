@@ -68,24 +68,24 @@ class Pelanggaran
         $this->db->bind('nis', $data['nis']);
         $bobot = $this->db->single()['total'];
 
-        // Jika >= 3, insert pemanggilan dan update baris terkait
-        if ($bobot >= 3) {
-            // a. Tambahkan pemanggilan
-            $this->db->query("INSERT INTO Pemanggilan (Tanggal, Status_Pemanggilan)
-                            VALUES (CURRENT_DATE, 'BelumTerkirim')");
-            $this->db->execute();
-            $pemanggilanID = $this->db->lastInsertId();
+        // // Jika >= 3, insert pemanggilan dan update baris terkait
+        // if ($bobot >= 3) {
+        //     // a. Tambahkan pemanggilan
+        //     $this->db->query("INSERT INTO Pemanggilan (Tanggal, Status_Pemanggilan)
+        //                     VALUES (CURRENT_DATE, 'BelumTerkirim')");
+        //     $this->db->execute();
+        //     $pemanggilanID = $this->db->lastInsertId();
 
-            // b. Update semua pelanggaran siswa yang belum ada PemanggilanID
-            $this->db->query("
-                UPDATE DetailPelanggaran 
-                SET PemanggilanID = :pid
-                WHERE NIS = :nis AND PemanggilanID IS NULL
-            ");
-            $this->db->bind('pid', $pemanggilanID);
-            $this->db->bind('nis', $data['nis']);
-            $this->db->execute();
-        }
+        //     // b. Update semua pelanggaran siswa yang belum ada PemanggilanID
+        //     $this->db->query("
+        //         UPDATE DetailPelanggaran 
+        //         SET PemanggilanID = :pid
+        //         WHERE NIS = :nis AND PemanggilanID IS NULL
+        //     ");
+        //     $this->db->bind('pid', $pemanggilanID);
+        //     $this->db->bind('nis', $data['nis']);
+        //     $this->db->execute();
+        // }
 
 
         
