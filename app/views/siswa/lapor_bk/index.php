@@ -11,7 +11,7 @@
       <select name="nis_terlapor" class="w-full bg-[#bbcde4] text-black px-4 py-3 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
         <option value="">Pilih nama siswa</option>
         <?php foreach ($data['siswa'] as $s): ?>
-          <option value="<?= $s['nis'] ?>"><?= $s['nama'] ?></option>
+          <option value="<?= $s['nis'] ?>"><?= $s['nama'] ?> (<?= $s['nis'] ?>)</option>
         <?php endforeach; ?>
       </select>
     </div>
