@@ -109,7 +109,7 @@
             Array.from(accountTableBody.rows).forEach(row => {
                 const namaCell = row.cells[1].textContent.toLowerCase();
                 const idCell = row.cells[2].textContent.toLowerCase();
-                const roleCell = row.cells[3].textContent.toLowerCase();
+                const roleCell = row.cells[5].textContent.toLowerCase(); // Perbaikan di sini
 
                 const matchesSearch = namaCell.includes(searchTerm) || idCell.includes(searchTerm);
                 const matchesRole = selectedRole === 'semua role' || roleCell.includes(selectedRole);
