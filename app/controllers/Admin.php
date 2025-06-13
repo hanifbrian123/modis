@@ -113,7 +113,7 @@ class Admin extends Controller
             $dataUser = [
                 'IDPengenal' => $nip,
                 'Role' => $role,
-                'Password' => password_hash($password, PASSWORD_DEFAULT)
+                'Password' => $password
             ];
 
             $dataBK = [
