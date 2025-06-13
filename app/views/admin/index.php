@@ -43,7 +43,7 @@
                                 data-original-content="<?php echo $user['Password'] ?>">***********</td>
                             <td>
                                 <span class="toggle-visibility" data-target="user<?php echo $i ?>Password">
-                                    <i class="fa-solid fa-eye"></i>
+                                    <i class="fa-regular fa-eye-slash"></i>
                                 </span>
                             </td>
                             <td class="p-2">
@@ -83,13 +83,13 @@
                 if (isVisible) {
                     // Jika sedang ditampilkan, sembunyikan dengan ******
                     passwordCell.textContent = '***********';
-                    eyeIcon.classList.remove('fa-eye-slash');
-                    eyeIcon.classList.add('fa-eye');
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
                 } else {
                     // Jika sedang disembunyikan, tampilkan konten asli
                     passwordCell.textContent = originalContent;
-                    eyeIcon.classList.remove('fa-eye');
-                    eyeIcon.classList.add('fa-eye-slash');
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
                 }
             });
         });
