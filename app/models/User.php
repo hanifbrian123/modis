@@ -129,4 +129,11 @@ class User
     $this->db->bind(':Angkatan', $data['Angkatan']);
     return $this->db->execute();
   }
+  public function angkatanSudahAda($angkatan)
+  {
+    $this->db->query("SELECT COUNT(*) as jml FROM siswa WHERE Angkatan = :angkatan");
+    $this->db->bind('angkatan', $angkatan);
+    $row = $this->db->single();
+    return $row['jml'] > 0;
+  }
 }
