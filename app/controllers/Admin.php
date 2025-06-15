@@ -52,13 +52,9 @@ class Admin extends Controller
                         $highestRow = $sheet->getHighestRow();
                         $highestColumn = $sheet->getHighestColumn();
 
-
-                        // Ambil header/nama kolom dari baris pertama (opsional, tergantung struktur Excel Anda)
-                        // Jika baris pertama adalah header, Anda bisa membacanya dan menggunakannya untuk SQL
-                        // $header = $sheet->rangeToArray('A1:' . $highestColumn . '1', NULL, TRUE, FALSE)[0];
-
                         // Looping untuk membaca data dari setiap baris
                         // Asumsi baris pertama adalah header, jadi mulai dari baris kedua (index 2)
+                        
                         for ($row = 2; $row <= $highestRow; $row++) {
                             // Ambil data dari sel-sel di baris ini
                             // Sesuaikan indeks kolom (A=1, B=2, dst.) dengan struktur Excel Anda
