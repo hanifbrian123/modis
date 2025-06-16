@@ -65,10 +65,15 @@
             fileError.classList.add('hidden');
         }
 
-        // Validasi angkatan (misal: dicek di backend, tapi bisa juga dicek di frontend jika perlu)
-        // Contoh: jika ingin validasi frontend, misal tidak boleh kosong
+        // Validasi angkatan tidak boleh kosong
         if (angkatanInput.value.trim() === '') {
             angkatanError.textContent = 'Angkatan tidak boleh kosong.';
+            angkatanError.classList.remove('hidden');
+            valid = false;
+        } 
+        // Validasi angkatan hanya angka
+        else if (!/^\d+$/.test(angkatanInput.value.trim())) {
+            angkatanError.textContent = 'Angkatan hanya boleh berisi angka.';
             angkatanError.classList.remove('hidden');
             valid = false;
         } else {
