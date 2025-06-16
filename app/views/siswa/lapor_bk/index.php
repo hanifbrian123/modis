@@ -7,7 +7,7 @@
   <form action="<?= BASEURL ?>/siswa/simpan_laporan" method="POST" enctype="multipart/form-data">
     <!-- Nama Pelanggar Searchable Dropdown -->
 <div x-data="dropdownTerlapor()" class="relative mb-6">
-  <label class="block font-semibold mb-2">Nama Pelanggar <span class="text-red-500">*</span></label>
+  <label class="block font-semibold mb-2">Nama Pelanggar *</label>
   
   <input
     type="text"
@@ -17,7 +17,7 @@
     @click.away="open = false"
     placeholder="Cari nama siswa..."
     class="w-full bg-[#bbcde4] text-black px-4 py-3 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-    required
+  
   >
 
   <input type="hidden" name="nis_terlapor" :value="selectedNis" />
@@ -39,7 +39,7 @@
 
     <!-- Jenis Pelanggaran -->
     <div class="mb-6">
-      <label class="block font-semibold mb-2">Pilih Jenis Pelanggaran</label>
+      <label class="block font-semibold mb-2">Pilih Jenis Pelanggaran *</label>
       <select name="jenis" class="w-full bg-[#bbcde4] text-black px-4 py-3 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
         <?php  foreach ($data['pelanggaran'] as $p): ?>
           <option value="<?= $p['ID'] ?>"><?= $p['NamaPelanggaran'] ?></option>
@@ -56,13 +56,13 @@
               file:rounded-full file:border-0
               file:text-sm file:font-semibold
               file:bg-[#bbcde4] file:text-black
-              hover:file:bg-blue-300 transition" required>
+              hover:file:bg-blue-300 transition">
     </div>
 
     <!-- Deskripsi -->
     <div class="mb-6">
       <label class="block font-semibold mb-2">Deskripsi Pelanggaran</label>
-      <textarea name="deskripsi" rows="5" class="w-full bg-[#bbcde4] text-black px-4 py-3 rounded-2xl shadow focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" placeholder="Tambahkan Deskripsi Pelanggaran"></textarea>
+      <textarea name="deskripsi" id="txtarea" rows="5" class="w-full bg-[#bbcde4] text-black px-4 py-3 rounded-2xl shadow focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" placeholder="Tambahkan Deskripsi Pelanggaran"></textarea>
     </div>
 
     <!-- Tombol Submit -->
@@ -93,4 +93,57 @@
       }
     }
   }
+  document.querySelector('form').addEventListener('submit', function (e) {
+    const selectedNis = document.querySelector('input[name="nis_terlapor"]').value.trim();
+    const deskripsi = document.getElementById('txtarea').value.trim();
+    const jenis = document.querySelector('select[name="jenis"]').value;
+    const fileInput = document.querySelector('input[name="bukti"]');
+    const file = fileInput.files[0];
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+    const maxSize = 3 * 1024 * 1024; // 3MB
+
+    // Validasi NIS terlapor
+    if (!selectedNis) {
+      e.preventDefault();
+      alert('Silakan pilih nama pelanggar dari daftar.');
+      return;
+    }
+
+    // Validasi jenis pelanggaran
+    if (!jenis || isNaN(jenis)) {
+      e.preventDefault();
+      alert('Jenis pelanggaran tidak valid.');
+      return;
+    }
+
+    // Validasi deskripsi
+    if (deskripsi.length < 10) {
+      e.preventDefault();
+      alert('Deskripsi pelanggaran minimal 10 karakter.');
+      return;
+    }
+
+    // Validasi file gambar
+    if (!file) {
+      e.preventDefault();
+      alert('Bukti gambar wajib diunggah.');
+      return;
+    }
+
+    if (!allowedTypes.includes(file.type)) {
+      e.preventDefault();
+      alert('Jenis file tidak didukung. Hanya gambar JPG, JPEG, PNG, atau WEBP yang diizinkan.');
+      fileInput.value = '';
+      return;
+    }
+
+    if (file.size > maxSize) {
+      e.preventDefault();
+      alert('Ukuran gambar maksimal 3MB.');
+      fileInput.value = '';
+      return;
+    }
+  });
+
 </script>
