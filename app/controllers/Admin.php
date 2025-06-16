@@ -32,10 +32,16 @@ class Admin extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $angkatan = isset($_POST['angkatan']) ? trim($_POST['angkatan']) : '';
 
-            // Reset error angkatan
-            $data['angkatan_error'] = '';
+            // Validasi angkatan hanya angka
+            if (!preg_match('/^\d+$/', $angkatan)) {
+                $data['angkatan_error'] = 'Angkatan hanya boleh berisi angka.';
+                $this->view('templates/header_admin', $data);
+                $this->view('admin/buat_akun_siswa', $data);
+                $this->view('templates/footer');
+                return;
+            }
 
-            // Validasi angkatan
+            // Validasi angkatan sudah ada
             if ($model->angkatanSudahAda($angkatan)) {
                 $data['angkatan_error'] = 'Angkatan sudah tersedia';
                 $this->view('templates/header_admin', $data);
