@@ -46,3 +46,8 @@ function routingRole()
       header('Location: ' . BASEURL . '/');
   }
 }
+
+function isEmpty($value): bool
+{
+  return trim($value) === '';
+}

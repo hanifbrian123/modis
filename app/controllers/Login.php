@@ -38,8 +38,19 @@
             break;
         }
       } else {
+        // var_dump($id, $password);
+        // die();
+
         $_SESSION['IDPengenal'] = $id;
-        Flasher::setFlash('NIS/NIP atau Password salah', 'error');
+        if (isEmpty($id) && isEmpty($password)) {
+          Flasher::setFlash('Username dan Password tidak boleh kosong', 'error');
+        } else if (isEmpty($id)) {
+          Flasher::setFlash('NIS/NIP tidak boleh kosong', 'error');
+        } else if (isEmpty($password)) {
+          Flasher::setFlash('Password tidak boleh kosong', 'error');
+        } else {
+          Flasher::setFlash('NIS/NIP atau Password salah', 'error');
+        }
         header('Location: ' . BASEURL . '/');
         exit;
       }
