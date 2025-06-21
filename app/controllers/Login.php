@@ -43,7 +43,7 @@
 
         $_SESSION['IDPengenal'] = $id;
         if (isEmpty($id) && isEmpty($password)) {
-          Flasher::setFlash('Username dan Password tidak boleh kosong', 'error');
+          Flasher::setFlash('NIP/NIS dan Password tidak boleh kosong', 'error');
         } else if (isEmpty($id)) {
           Flasher::setFlash('NIS/NIP tidak boleh kosong', 'error');
         } else if (isEmpty($password)) {
