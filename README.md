@@ -1,4 +1,4 @@
-# MODIS — Monitoring Disiplin Siswa
+# MODIS — Sistem Monitoring Aktivitas Dan Pelanggaran Peserta Didik Sman 1 Gresik Berbasis Website
 
 ## Overview Aplikasi
 
