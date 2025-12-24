@@ -83,9 +83,7 @@ Jika menggunakan XAMPP dan repo berada di `xampp/htdocs/modis`, maka aplikasi da
 http://localhost/modis/public
 ```
 
----
-
-## Kredensial Demo
+## Kredensial Login Untuk Demo
 
 Berikut beberapa kredensial untuk mencoba aplikasi:
 
